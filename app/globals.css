@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== Base Layer ===== */
+@layer base {
+  :root {
+    --font-inter: "Inter", sans-serif;
+    --font-playfair: "Playfair Display", serif;
+  }
+
+  /* Corrigido: border-border → border-neutral-700 */
+  * {
+    @apply border-neutral-700;
+  }
+
+  body {
+    @apply bg-neutral-900 text-neutral-100;
+    font-family: var(--font-inter);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-playfair);
+  }
+}
+
+/* ===== Utilities Layer ===== */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ===== Scroll behavior ===== */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===== Custom scrollbar ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #171717;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f59e0b; /* dourado */
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d97706; /* dourado mais escuro */
+}
