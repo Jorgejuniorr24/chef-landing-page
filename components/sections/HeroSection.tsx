@@ -12,13 +12,21 @@ export default function HeroSection() {
   return (
     <section className="relative h-screen flex items-center overflow-hidden">
       {/* ✅ Background */}
+      {/* ✅ Background profissional com múltiplas camadas */}
       <div className="absolute inset-0">
+        {/* Imagem de fundo */}
         <img
-          src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=1920&q=80"
+          src="/images/2.jpg"
           alt="Chef em ação"
-          className="w-full h-full object-cover object-center opacity-40"
+          className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-neutral-900 via-neutral-900/90 to-neutral-900/50" />
+
+        {/* Overlay com gradiente sofisticado multicamadas */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/75 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+
+        {/* Efeito de vinheta nas bordas */}
+        <div className="absolute inset-0 shadow-[inset_0_0_100px_rgba(0,0,0,0.5)]" />
       </div>
 
       {/* ✅ Conteúdo principal */}

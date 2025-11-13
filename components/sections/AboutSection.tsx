@@ -1,22 +1,17 @@
 "use client";
 
-import { Clock, Calendar, Globe } from "lucide-react";
+import { Clock, Calendar } from "lucide-react";
 
 const stats = [
   {
-    number: "+15",
+    number: "+2",
     label: "Anos de Experiência",
     icon: <Clock className="w-8 h-8" />,
   },
   {
-    number: "+300",
+    number: "+10",
     label: "Eventos Realizados",
     icon: <Calendar className="w-8 h-8" />,
-  },
-  {
-    number: "5",
-    label: "Presença em 5 Países",
-    icon: <Globe className="w-8 h-8" />,
   },
 ];
 
@@ -41,9 +36,10 @@ export default function AboutSection() {
           {/* Image */}
           <div className="relative">
             <div className="absolute -inset-4 bg-amber-600/20 rounded-lg" />
+
             <img
-              src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=800&q=80"
-              alt="Chef Ricardo"
+              src="/images/1.jpg"
+              alt="Chef Henrique"
               className="relative rounded-lg w-full h-[600px] object-cover shadow-2xl"
             />
           </div>
@@ -51,17 +47,25 @@ export default function AboutSection() {
           {/* Content */}
           <div>
             <h3 className="text-3xl font-serif text-white mb-6">
-              Chef Ricardo
+              Chef Henrique
             </h3>
+
             <p className="text-neutral-300 text-lg leading-relaxed mb-6">
-              Com mais de 15 anos de experiência em restaurantes premiados na
-              Europa e América Latina, Chef Ricardo traz uma abordagem única que
-              combina técnicas clássicas com inovação contemporânea.
+              Com formação em Gastronomia pela UNIFACS e ampla experiência entre
+              cozinha e atendimento, Henrique Menezes desenvolveu uma visão
+              completa da hospitalidade. Sua trajetória começou no garde manger,
+              onde aprendeu técnica, organização e estética, e evoluiu para o
+              salão, área que despertou seu interesse por vinhos e harmonização.
             </p>
+
             <p className="text-neutral-300 text-lg leading-relaxed mb-8">
-              Sua filosofia culinária é baseada no respeito aos ingredientes,
-              técnicas impecáveis e apresentação que transforma cada prato em
-              uma obra de arte gastronômica.
+              Unindo conhecimento culinário, domínio do inglês e experiência
+              direta com o público, Henrique entrega um atendimento refinado e
+              personalizado. Atua também em consultorias de cardápio, explorando
+              criatividade e estratégia, e se prepara para uma pós-graduação em
+              Gestão de Negócios Gastronômicos. Sua abordagem integra técnica,
+              sensibilidade e constante evolução — características que elevam
+              cada experiência gastronômica que conduz.
             </p>
 
             {/* Stats */}
@@ -87,6 +91,7 @@ export default function AboutSection() {
               >
                 Ver Menu
               </button>
+
               <button
                 onClick={() => scrollToSection("contato")}
                 className="bg-transparent border-2 border-amber-500 text-amber-500 px-6 py-3 rounded-full hover:bg-amber-500 hover:text-white transition-all"

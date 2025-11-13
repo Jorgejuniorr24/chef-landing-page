@@ -129,7 +129,9 @@ export default function ContactSection() {
                 <Mail className="w-6 h-6 text-amber-500 mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold text-white mb-1">E-mail</p>
-                  <p className="text-neutral-400">contato@chefricardo.com</p>
+                  <p className="text-neutral-400">
+                    contato@chefhenrique.com.br
+                  </p>
                 </div>
               </div>
 
@@ -137,7 +139,7 @@ export default function ContactSection() {
                 <Phone className="w-6 h-6 text-amber-500 mt-1 flex-shrink-0" />
                 <div>
                   <p className="font-semibold text-white mb-1">Telefone</p>
-                  <p className="text-neutral-400">+55 (71) 99999-9999</p>
+                  <p className="text-neutral-400">+55 (71) 99646-7680</p>
                 </div>
               </div>
 

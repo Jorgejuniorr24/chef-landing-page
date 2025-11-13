@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="flex items-center justify-center space-x-2 mb-6">
           <ChefHat className="w-6 h-6 text-amber-500" aria-hidden="true" />
           <span className="text-xl font-serif text-amber-500">
-            Chef Ricardo
+            Chef Henrique
           </span>
         </div>
 
@@ -26,6 +26,7 @@ export default function Footer() {
           >
             <Instagram className="w-5 h-5" />
           </a>
+
           <a
             href="https://facebook.com"
             target="_blank"
@@ -35,6 +36,7 @@ export default function Footer() {
           >
             <Facebook className="w-5 h-5" />
           </a>
+
           <a
             href="https://linkedin.com"
             target="_blank"
@@ -48,13 +50,21 @@ export default function Footer() {
 
         {/* Texto final */}
         <p className="text-neutral-500 text-sm mb-2">
-          &copy; {new Date().getFullYear()}{" "}
-          <span className="text-amber-500">Chef Ricardo</span>. Todos os
-          direitos reservados.
+          &copy; {new Date().getFullYear()} Chef Henrique. Todos os direitos
+          reservados.
         </p>
+
+        {/* Crédito do Dev */}
         <p className="text-neutral-600 text-xs">
-          Desenvolvido com <span className="text-amber-500">paixão</span> pela
-          gastronomia.
+          Desenvolvido por{" "}
+          <a
+            href="https://portfolio-jorge-fullstack.vercel.app/#home"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-amber-500 hover:text-amber-400 underline underline-offset-2 transition"
+          >
+            JorgeOliveira
+          </a>
         </p>
       </div>
 
