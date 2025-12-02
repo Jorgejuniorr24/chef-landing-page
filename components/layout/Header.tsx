@@ -109,7 +109,7 @@ export default function Header({ className = "" }: HeaderProps) {
 
     // Focus management para acessibilidade
     setTimeout(() => {
-      element.focus({ preventScroll: true });
+      element.focus?.({ preventScroll: true });
     }, HEADER_TRANSITION_DURATION);
   }, []);
 
@@ -154,17 +154,6 @@ export default function Header({ className = "" }: HeaderProps) {
     group-hover:rotate-6
     group-focus-visible:ring-2 group-focus-visible:ring-amber-500 
     group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-neutral-950
-  `.trim();
-
-  const ctaClasses = `
-    hidden md:inline-flex
-    bg-amber-500 hover:bg-amber-400 active:bg-amber-600
-    text-neutral-950 px-6 py-2.5 rounded-full
-    font-semibold shadow-md shadow-amber-500/30
-    transition-all duration-200
-    hover:scale-105 active:scale-95
-    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950
-    whitespace-nowrap
   `.trim();
 
   const mobileMenuClasses = `
@@ -222,14 +211,8 @@ export default function Header({ className = "" }: HeaderProps) {
             <Navigation onNavigate={scrollToSection} />
           </div>
 
-          {/* CTA Desktop */}
-          <button
-            onClick={() => scrollToSection("contato")}
-            className={ctaClasses}
-            aria-label="Agendar uma experiência gastronômica"
-          >
-            Agendar Experiência
-          </button>
+          {/* Placeholder invisível para manter alinhamento perfeito */}
+          <div className="hidden md:block w-32"></div>
 
           {/* Menu Mobile Toggle */}
           <button
@@ -302,16 +285,7 @@ export default function Header({ className = "" }: HeaderProps) {
           <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-10">
             <div className="space-y-6">
               <Navigation onNavigate={scrollToSection} mobile />
-
-              <div className="pt-4 border-t border-amber-500/10">
-                <button
-                  onClick={() => scrollToSection("contato")}
-                  className="bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-neutral-950 px-8 py-4 rounded-full w-full font-semibold shadow-md shadow-amber-500/30 transition-all duration-200 hover:scale-[1.02] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 text-base"
-                  aria-label="Agendar uma experiência gastronômica"
-                >
-                  Agendar Experiência
-                </button>
-              </div>
+              {/* CTA Mobile removido */}
             </div>
           </div>
 

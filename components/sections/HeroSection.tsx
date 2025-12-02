@@ -30,7 +30,7 @@ export default function HeroSection() {
       </div>
 
       {/* ✅ Conteúdo principal */}
-      <div className="relative z-10 container mx-auto px-6">
+      <div className="relative z-10 container mx-auto px-6 mt-[12vh]">
         <div className="max-w-2xl">
           <h1 className="text-5xl md:text-7xl font-serif mb-6 leading-tight">
             Transformando <br />
@@ -39,21 +39,15 @@ export default function HeroSection() {
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-300 mb-8 leading-relaxed max-w-xl">
-            Chef Ricardo, especialista em gastronomia contemporânea com sabores
+            Chef Henrique, especialista em gastronomia contemporânea com sabores
             que contam histórias.
           </p>
 
+          {/* ✅ MUDANÇA 5: Removido botão "Ver Menu", mantido apenas "Agendar Experiência" */}
           <div className="flex flex-col sm:flex-row gap-4">
             <button
-              onClick={() => scrollToSection("pratos")}
-              className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 rounded-full font-medium transition-all transform hover:scale-105 shadow-xl"
-            >
-              Ver Menu
-            </button>
-
-            <button
               onClick={() => scrollToSection("contato")}
-              className="bg-transparent border-2 border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-white px-8 py-4 rounded-full font-medium transition-all"
+              className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-4 rounded-full font-medium transition-all transform hover:scale-105 shadow-xl"
             >
               Agendar Experiência
             </button>

@@ -390,15 +390,6 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
                   aria-hidden="true"
                 />
               </button>
-
-              <button
-                onClick={() => scrollToSection("contato")}
-                className="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-neutral-950 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-sm sm:text-base transition-all duration-300 hover:scale-105 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-800 touch-manipulation"
-                aria-label="Agendar uma experiência gastronômica com Chef Henrique"
-              >
-                <span>Agendar Experiência</span>
-                <Sparkles className="w-5 h-5" aria-hidden="true" />
-              </button>
             </div>
           </div>
         </div>

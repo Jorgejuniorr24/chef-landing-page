@@ -186,10 +186,7 @@ export default function ContactSection({
                 className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500"
                 aria-hidden="true"
               />
-              <Sparkles
-                className="w-4 h-4 text-amber-500 animate-pulse"
-                aria-hidden="true"
-              />
+              <Sparkles className="w-4 h-4 text-amber-500" aria-hidden="true" />
               <span
                 className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500"
                 aria-hidden="true"
@@ -573,7 +570,7 @@ export default function ContactSection({
         </div>
       </div>
 
-      {/* Botão Flutuante WhatsApp */}
+      {/* ✅ MUDANÇA 2: Botão Flutuante WhatsApp - Removido animate-ping */}
       <a
         href="https://wa.me/5571996467680"
         target="_blank"
@@ -596,12 +593,6 @@ export default function ContactSection({
         aria-label="Contato via WhatsApp"
       >
         <Phone className="w-6 h-6 sm:w-7 sm:h-7" />
-
-        {/* Pulse animation */}
-        <span
-          className="absolute inset-0 rounded-full bg-green-500 opacity-75 animate-ping"
-          aria-hidden="true"
-        />
       </a>
     </section>
   );

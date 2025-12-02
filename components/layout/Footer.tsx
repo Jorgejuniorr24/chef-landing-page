@@ -6,14 +6,11 @@ import {
   Instagram,
   Facebook,
   Linkedin,
-  Mail,
-  Phone,
-  MapPin,
   Heart,
   Sparkles,
-  ArrowUp,
 } from "lucide-react";
-import { useState, useEffect, useCallback } from "react";
+
+import { useCallback } from "react";
 
 // Types
 interface FooterProps {
@@ -62,26 +59,7 @@ const QUICK_LINKS: QuickLink[] = [
 ];
 
 export default function Footer({ className = "" }: FooterProps) {
-  const [showScrollTop, setShowScrollTop] = useState(false);
   const currentYear = new Date().getFullYear();
-
-  // Detecta scroll para mostrar botão "voltar ao topo"
-  useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 500);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Scroll to top suave
-  const scrollToTop = useCallback(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, []);
 
   // Scroll suave para seções
   const scrollToSection = useCallback((href: string) => {
@@ -145,7 +123,7 @@ export default function Footer({ className = "" }: FooterProps) {
                   aria-hidden="true"
                 />
                 <Sparkles
-                  className="absolute -top-1 -right-1 w-3 h-3 text-amber-400 animate-pulse"
+                  className="absolute -top-1 -right-1 w-3 h-3 text-amber-400"
                   aria-hidden="true"
                 />
               </div>
@@ -162,34 +140,6 @@ export default function Footer({ className = "" }: FooterProps) {
               Transformando ingredientes em experiências únicas através da
               gastronomia contemporânea com sabores que contam histórias.
             </p>
-
-            {/* Contact Info */}
-            <div className="space-y-3">
-              <a
-                href="mailto:contato@chefhenrique.com.br"
-                className="flex items-center gap-3 text-sm text-neutral-400 hover:text-amber-500 transition-colors justify-center md:justify-start group"
-              >
-                <Mail
-                  className="w-4 h-4 flex-shrink-0 group-hover:scale-110 transition-transform"
-                  aria-hidden="true"
-                />
-                <span>contato@chefhenrique.com.br</span>
-              </a>
-              <a
-                href="tel:+5571996467680"
-                className="flex items-center gap-3 text-sm text-neutral-400 hover:text-amber-500 transition-colors justify-center md:justify-start group"
-              >
-                <Phone
-                  className="w-4 h-4 flex-shrink-0 group-hover:scale-110 transition-transform"
-                  aria-hidden="true"
-                />
-                <span>+55 (71) 99646-7680</span>
-              </a>
-              <div className="flex items-center gap-3 text-sm text-neutral-400 justify-center md:justify-start">
-                <MapPin className="w-4 h-4 flex-shrink-0" aria-hidden="true" />
-                <span>Salvador, Bahia - Brasil</span>
-              </div>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -284,29 +234,6 @@ export default function Footer({ className = "" }: FooterProps) {
           </div>
         </div>
       </div>
-
-      {/* Scroll to Top Button */}
-      <button
-        onClick={scrollToTop}
-        className={`
-          fixed bottom-6 right-6 z-50
-          flex items-center justify-center
-          w-12 h-12 rounded-full
-          bg-gradient-to-r from-amber-500 to-amber-600
-          text-neutral-950 shadow-xl shadow-amber-500/30
-          transition-all duration-300
-          hover:scale-110 hover:shadow-2xl hover:shadow-amber-500/40
-          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2
-          ${
-            showScrollTop
-              ? "opacity-100 translate-y-0 pointer-events-auto"
-              : "opacity-0 translate-y-4 pointer-events-none"
-          }
-        `}
-        aria-label="Voltar ao topo"
-      >
-        <ArrowUp className="w-5 h-5" aria-hidden="true" />
-      </button>
     </footer>
   );
 }
