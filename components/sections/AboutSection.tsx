@@ -9,7 +9,6 @@ import {
   Sparkles,
   ArrowRight,
   CheckCircle2,
-  GraduationCap,
   Star,
 } from "lucide-react";
 import { useEffect, useRef, useState, useCallback } from "react";
@@ -41,28 +40,28 @@ const stats: Stat[] = [
     number: "+2",
     label: "Anos de Experiência",
     description: "em gastronomia profissional",
-    icon: <Clock className="w-6 h-6 sm:w-8 sm:h-8" aria-hidden="true" />,
+    icon: <Clock className="w-4 h-4" aria-hidden="true" />,
     color: "from-amber-500 to-orange-500",
   },
   {
     number: "+10",
     label: "Eventos Realizados",
     description: "com excelência e dedicação",
-    icon: <Calendar className="w-6 h-6 sm:w-8 sm:h-8" aria-hidden="true" />,
+    icon: <Calendar className="w-4 h-4" aria-hidden="true" />,
     color: "from-orange-500 to-red-500",
   },
   {
     number: "100%",
     label: "Satisfação dos Clientes",
     description: "comprometimento total",
-    icon: <Award className="w-6 h-6 sm:w-8 sm:h-8" aria-hidden="true" />,
+    icon: <Award className="w-4 h-4" aria-hidden="true" />,
     color: "from-red-500 to-pink-500",
   },
   {
     number: "+50",
     label: "Pessoas Atendidas",
     description: "em experiências únicas",
-    icon: <Users className="w-6 h-6 sm:w-8 sm:h-8" aria-hidden="true" />,
+    icon: <Users className="w-4 h-4" aria-hidden="true" />,
     color: "from-pink-500 to-purple-500",
   },
 ];
@@ -125,7 +124,7 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
   }, []);
 
   const sectionClasses = `
-    py-16 sm:py-20 md:py-24 lg:py-28 
+    py-12 sm:py-16 md:py-20 lg:py-22
     relative overflow-hidden
     ${className}
   `.trim();
@@ -188,18 +187,13 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
           >
             Sobre o Chef
           </h2>
-          <p className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto">
-            Conheça a trajetória de quem transforma ingredientes em experiências
-          </p>
+
           <div className="flex items-center justify-center gap-2 mt-4">
             <span
               className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500"
               aria-hidden="true"
             />
-            <Sparkles
-              className="w-4 h-4 text-amber-500 animate-pulse"
-              aria-hidden="true"
-            />
+            <Sparkles className="w-4 h-4 text-amber-500" aria-hidden="true" />
             <span
               className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500"
               aria-hidden="true"
@@ -208,7 +202,7 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
-          {/* Image Section - Estática sem efeitos de scroll */}
+          {/* Image Section */}
           <div className="relative order-2 md:order-1">
             {/* Decorative background with gradient */}
             <div
@@ -216,7 +210,7 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
               aria-hidden="true"
             />
 
-            {/* Image container - REMOVIDO parallax/ref */}
+            {/* Image container */}
             <div className={imageWrapperClasses}>
               <Image
                 src="/images/1.jpg"
@@ -234,18 +228,10 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
                 aria-hidden="true"
               />
 
-              {/* Floating badges */}
+              {/* Floating badge */}
               <div className="absolute top-4 left-4 sm:top-6 sm:left-6 bg-gradient-to-r from-amber-500 to-amber-600 text-neutral-950 px-4 sm:px-6 py-2 sm:py-3 rounded-full font-bold text-xs sm:text-sm shadow-xl backdrop-blur-sm flex items-center gap-2">
                 <Award className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                 <span>Chef Certificado</span>
-              </div>
-
-              <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 bg-neutral-900/90 backdrop-blur-sm text-amber-400 px-4 sm:px-6 py-2 sm:py-3 rounded-full font-semibold text-xs sm:text-sm shadow-xl border border-amber-500/30 flex items-center gap-2">
-                <GraduationCap
-                  className="w-4 h-4 sm:w-5 sm:h-5"
-                  aria-hidden="true"
-                />
-                <span>UNIFACS</span>
               </div>
             </div>
           </div>
@@ -253,11 +239,8 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
           {/* Content Section */}
           <div className={`${contentClasses} order-1 md:order-2`}>
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-serif text-white">
-                Chef Henrique Menezes
-              </h3>
               <Star
-                className="w-6 h-6 text-amber-500 fill-amber-500 animate-pulse"
+                className="w-6 h-6 text-amber-500 fill-amber-500"
                 aria-hidden="true"
               />
             </div>
@@ -303,74 +286,51 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
               </div>
             </div>
 
-            {/* Skills Progress Bars */}
-            <div className="mb-6 sm:mb-8">
-              <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
-                <Sparkles
-                  className="w-5 h-5 text-amber-500"
-                  aria-hidden="true"
-                />
-                Especialidades
-              </h4>
-              <div className="space-y-4">
-                {skills.map((skill, index) => (
-                  <div key={index}>
-                    <div className="flex justify-between text-sm mb-2">
-                      <span className="text-neutral-300">{skill.name}</span>
-                      <span className="text-amber-500 font-semibold">
-                        {skill.level}%
-                      </span>
+            {/* Skills + Stats - Versão Minimalista */}
+            <div className="mb-6 space-y-4">
+              {/* Barras de especialidades compactas */}
+              <div>
+                <h4 className="text-white font-semibold mb-2 flex items-center gap-2 text-xs sm:text-sm">
+                  <Sparkles
+                    className="w-4 h-4 text-amber-500"
+                    aria-hidden="true"
+                  />
+                  Especialidades
+                </h4>
+                <div className="space-y-2">
+                  {skills.map((skill, index) => (
+                    <div key={index}>
+                      <div className="flex justify-between text-[11px] sm:text-xs mb-0.5">
+                        <span className="text-neutral-300">{skill.name}</span>
+                        <span className="text-amber-500 font-semibold">
+                          {skill.level}%
+                        </span>
+                      </div>
+                      <div className="h-0.5 bg-neutral-900/60 rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full transition-all duration-1000 ease-out"
+                          style={{
+                            width: isVisible ? `${skill.level}%` : "0%",
+                            transitionDelay: `${index * 100}ms`,
+                          }}
+                        />
+                      </div>
                     </div>
-                    <div className="h-2 bg-neutral-900/50 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full transition-all duration-1000 ease-out"
-                        style={{
-                          width: isVisible ? `${skill.level}%` : "0%",
-                          transitionDelay: `${index * 100}ms`,
-                        }}
-                      />
-                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Linha de métricas em vez de cards grandes */}
+              <div className="flex flex-wrap gap-x-4 gap-y-1 text-[11px] sm:text-xs text-neutral-400">
+                {stats.map((stat, index) => (
+                  <div key={index} className="flex items-center gap-1">
+                    <span className="text-amber-400 font-semibold">
+                      {stat.number}
+                    </span>
+                    <span>{stat.label}</span>
                   </div>
                 ))}
               </div>
-            </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
-              {stats.map((stat, index) => (
-                <div
-                  key={index}
-                  className="group relative p-4 sm:p-5 bg-gradient-to-br from-neutral-900/70 to-neutral-800/50 backdrop-blur-sm rounded-xl border border-neutral-700/50 hover:border-amber-500/50 transition-all duration-300 hover:scale-105"
-                  style={{
-                    transitionDelay: `${(index + 4) * 100}ms`,
-                  }}
-                >
-                  {/* Gradient overlay */}
-                  <div
-                    className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-10 bg-gradient-to-br ${stat.color} transition-opacity duration-300`}
-                    aria-hidden="true"
-                  />
-
-                  <div className="relative z-10">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div
-                        className={`p-2 rounded-lg bg-gradient-to-br ${stat.color} text-white`}
-                      >
-                        {stat.icon}
-                      </div>
-                      <p className="text-2xl sm:text-3xl font-bold text-white tabular-nums">
-                        {stat.number}
-                      </p>
-                    </div>
-                    <p className="text-neutral-300 font-medium text-xs sm:text-sm">
-                      {stat.label}
-                    </p>
-                    <p className="text-neutral-500 text-xs mt-1">
-                      {stat.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
             </div>
 
             {/* CTAs */}

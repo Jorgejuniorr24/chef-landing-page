@@ -498,73 +498,7 @@ export default function ContactSection({
                 </div>
               </div>
 
-              {/* Redes Sociais */}
-              <div className="pt-6 border-t border-neutral-700/50">
-                <p className="font-semibold text-white mb-4 text-sm sm:text-base">
-                  Siga nas Redes Sociais
-                </p>
-                <div className="flex flex-wrap gap-3 sm:gap-4">
-                  <a
-                    href="#"
-                    className="
-                      group/social p-3 sm:p-4 rounded-xl
-                      bg-neutral-800/50 backdrop-blur-sm
-                      border border-neutral-700/50
-                      text-amber-500
-                      hover:bg-gradient-to-br hover:from-amber-500 hover:to-orange-500
-                      hover:text-white hover:border-amber-500
-                      hover:scale-110 hover:shadow-lg hover:shadow-amber-500/30
-                      transition-all duration-300
-                      focus-visible:outline-none focus-visible:ring-2 
-                      focus-visible:ring-amber-500 focus-visible:ring-offset-2 
-                      focus-visible:ring-offset-neutral-900
-                    "
-                    aria-label="Instagram"
-                  >
-                    <Instagram className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </a>
-
-                  <a
-                    href="#"
-                    className="
-                      group/social p-3 sm:p-4 rounded-xl
-                      bg-neutral-800/50 backdrop-blur-sm
-                      border border-neutral-700/50
-                      text-amber-500
-                      hover:bg-gradient-to-br hover:from-amber-500 hover:to-orange-500
-                      hover:text-white hover:border-amber-500
-                      hover:scale-110 hover:shadow-lg hover:shadow-amber-500/30
-                      transition-all duration-300
-                      focus-visible:outline-none focus-visible:ring-2 
-                      focus-visible:ring-amber-500 focus-visible:ring-offset-2 
-                      focus-visible:ring-offset-neutral-900
-                    "
-                    aria-label="Facebook"
-                  >
-                    <Facebook className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </a>
-
-                  <a
-                    href="#"
-                    className="
-                      group/social p-3 sm:p-4 rounded-xl
-                      bg-neutral-800/50 backdrop-blur-sm
-                      border border-neutral-700/50
-                      text-amber-500
-                      hover:bg-gradient-to-br hover:from-amber-500 hover:to-orange-500
-                      hover:text-white hover:border-amber-500
-                      hover:scale-110 hover:shadow-lg hover:shadow-amber-500/30
-                      transition-all duration-300
-                      focus-visible:outline-none focus-visible:ring-2 
-                      focus-visible:ring-amber-500 focus-visible:ring-offset-2 
-                      focus-visible:ring-offset-neutral-900
-                    "
-                    aria-label="LinkedIn"
-                  >
-                    <Linkedin className="w-5 h-5 sm:w-6 sm:h-6" />
-                  </a>
-                </div>
-              </div>
+              
             </div>
           </div>
         </div>
