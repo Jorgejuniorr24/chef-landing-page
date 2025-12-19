@@ -29,7 +29,7 @@ const dishes: Dish[] = [
     description:
       "Arroz arbóreo cremoso com frutos do mar frescos e toque de limão siciliano",
     image:
-      "https://images.unsplash.com/photo-1633964913295-ceb43826923c?w=800&q=80",
+      "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=800&q=80",
   },
   {
     id: 2,
@@ -69,7 +69,7 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
   const [selectedDish, setSelectedDish] = useState<Dish | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
-  // ✅ MUDANÇA 8: Modal state e handlers
+  // Modal state e handlers
   const openModal = useCallback((dish: Dish) => {
     setSelectedDish(dish);
     document.body.style.overflow = "hidden";
@@ -270,7 +270,7 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
         </div>
       </section>
 
-      {/* ✅ MUDANÇA 8: Modal para exibir detalhes do prato */}
+      {/* Modal para exibir detalhes do prato */}
       {selectedDish && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md animate-in fade-in duration-300"

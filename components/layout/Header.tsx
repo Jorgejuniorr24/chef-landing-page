@@ -30,7 +30,6 @@ export default function Header({ className = "" }: HeaderProps) {
         window.requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
 
-          // Detecta direção do scroll
           if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
             setIsScrollingDown(true);
           } else {
@@ -38,10 +37,7 @@ export default function Header({ className = "" }: HeaderProps) {
           }
 
           lastScrollY.current = currentScrollY;
-
-          // Atualiza estado de scroll
           setIsScrolled(currentScrollY > SCROLL_THRESHOLD);
-
           ticking = false;
         });
         ticking = true;
@@ -50,7 +46,6 @@ export default function Header({ className = "" }: HeaderProps) {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Cleanup
     return () => {
       window.removeEventListener("scroll", handleScroll);
       if (scrollTimeoutRef.current) {
@@ -107,7 +102,6 @@ export default function Header({ className = "" }: HeaderProps) {
     // Fecha menu mobile após navegação
     setIsMenuOpen(false);
 
-    // Focus management para acessibilidade
     setTimeout(() => {
       element.focus?.({ preventScroll: true });
     }, HEADER_TRANSITION_DURATION);
@@ -157,7 +151,7 @@ export default function Header({ className = "" }: HeaderProps) {
   `.trim();
 
   const mobileMenuClasses = `
-    md:hidden fixed inset-x-0 top-0 bottom-0
+    md:hidden fixed inset-x-0 top-0 bottom-0 z-50
     bg-neutral-950/98 backdrop-blur-xl
     shadow-2xl shadow-black/50
     overflow-y-auto overscroll-contain
@@ -187,9 +181,8 @@ export default function Header({ className = "" }: HeaderProps) {
                 className="w-5 h-5 text-amber-400 transition-all duration-300 group-hover:text-amber-300 group-hover:scale-110"
                 aria-hidden="true"
               />
-              {/* Sparkle effect */}
               <Sparkles
-                className="absolute -top-1 -right-1 w-3 h-3 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"
+                className="absolute -top-1 -right-1 w-3 h-3 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                 aria-hidden="true"
               />
             </span>
@@ -203,16 +196,16 @@ export default function Header({ className = "" }: HeaderProps) {
             </div>
           </button>
 
-          {/* Navegação Desktop */}
+          {/* Navegação Desktop Centralizada */}
           <div
-            className="hidden md:flex items-center space-x-8"
+            className="hidden md:flex items-center space-x-8 absolute left-1/2 -translate-x-1/2"
             role="navigation"
           >
             <Navigation onNavigate={scrollToSection} />
           </div>
 
-          {/* Placeholder invisível para manter alinhamento perfeito */}
-          <div className="hidden md:block w-32"></div>
+          {/* Espaçador invisível para manter o layout balanceado */}
+          <div className="hidden md:block w-[200px]" aria-hidden="true" />
 
           {/* Menu Mobile Toggle */}
           <button
@@ -247,7 +240,6 @@ export default function Header({ className = "" }: HeaderProps) {
         aria-modal="true"
         aria-hidden={!isMenuOpen}
       >
-        {/* Gradient background decoration */}
         <div
           className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-amber-600/5"
           aria-hidden="true"
@@ -281,11 +273,21 @@ export default function Header({ className = "" }: HeaderProps) {
             </button>
           </div>
 
-          {/* Conteúdo do Menu */}
+          {/* Conteúdo do Menu com Navigation */}
           <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-10">
             <div className="space-y-6">
               <Navigation onNavigate={scrollToSection} mobile />
-              {/* CTA Mobile removido */}
+
+              {/* CTA Mobile */}
+              <div className="pt-4 border-t border-amber-500/10">
+                <button
+                  onClick={() => scrollToSection("contato")}
+                  className="bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-neutral-950 px-8 py-4 rounded-full w-full font-semibold shadow-md shadow-amber-500/30 transition-all duration-200 hover:scale-[1.02] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 text-base"
+                  aria-label="Agendar uma experiência gastronômica"
+                >
+                  Agendar Experiência
+                </button>
+              </div>
             </div>
           </div>
 
