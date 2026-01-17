@@ -1,4 +1,3 @@
-// landing-chef/components/layout/Header.tsx
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
@@ -17,11 +16,15 @@ const HEADER_TRANSITION_DURATION = 300;
 export default function Header({ className = "" }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
-  const lastScrollY = useRef(0);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
 
-  // Gerenciamento de scroll otimizado com throttle
+  const lastScrollY = useRef(0);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
+  const isProgrammaticScroll = useRef(false);
+
+  // =========================
+  // Scroll listener (manual)
+  // =========================
   useEffect(() => {
     let ticking = false;
 
@@ -30,9 +33,14 @@ export default function Header({ className = "" }: HeaderProps) {
         window.requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
 
-          if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-            setIsScrollingDown(true);
+          if (!isProgrammaticScroll.current) {
+            if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+              setIsScrollingDown(true);
+            } else {
+              setIsScrollingDown(false);
+            }
           } else {
+            // durante scroll por clique, nunca esconda o header
             setIsScrollingDown(false);
           }
 
@@ -40,6 +48,7 @@ export default function Header({ className = "" }: HeaderProps) {
           setIsScrolled(currentScrollY > SCROLL_THRESHOLD);
           ticking = false;
         });
+
         ticking = true;
       }
     };
@@ -48,13 +57,13 @@ export default function Header({ className = "" }: HeaderProps) {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
+      if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
     };
   }, []);
 
-  // Previne scroll quando menu mobile está aberto
+  // =========================
+  // Lock scroll when menu open
+  // =========================
   useEffect(() => {
     if (isMenuOpen) {
       const scrollY = window.scrollY;
@@ -69,7 +78,7 @@ export default function Header({ className = "" }: HeaderProps) {
       document.body.style.width = "";
       document.body.style.overflow = "";
       if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || "0") * -1);
+        window.scrollTo(0, parseInt(scrollY) * -1);
       }
     }
 
@@ -81,38 +90,50 @@ export default function Header({ className = "" }: HeaderProps) {
     };
   }, [isMenuOpen]);
 
-  // Scroll suave com validação e callback
+  // =========================
+  // Scroll to section (links)
+  // =========================
   const scrollToSection = useCallback((id: string) => {
-    const element = document.getElementById(id);
-
-    if (!element) {
-      console.warn(`Element with id "${id}" not found`);
-      return;
-    }
-
-    const headerOffset = 80;
-    const elementPosition = element.getBoundingClientRect().top;
-    const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-    window.scrollTo({
-      top: offsetPosition,
-      behavior: "smooth",
-    });
-
-    // Fecha menu mobile após navegação
+    isProgrammaticScroll.current = true;
+    setIsScrollingDown(false);
     setIsMenuOpen(false);
 
-    setTimeout(() => {
-      element.focus?.({ preventScroll: true });
-    }, HEADER_TRANSITION_DURATION);
+    requestAnimationFrame(() => {
+      if (id === "home") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const element = document.getElementById(id);
+
+        if (!element) {
+          console.warn(`Element with id "${id}" not found`);
+          isProgrammaticScroll.current = false;
+          return;
+        }
+
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+      }
+
+      setTimeout(() => {
+        isProgrammaticScroll.current = false;
+        lastScrollY.current = window.scrollY;
+      }, 700);
+    });
   }, []);
 
-  // Toggle menu com callback
+  // =========================
+  // Toggle menu
+  // =========================
   const toggleMenu = useCallback(() => {
     setIsMenuOpen((prev) => !prev);
   }, []);
 
-  // Fecha menu ao pressionar ESC
+  // =========================
+  // ESC to close menu
+  // =========================
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape" && isMenuOpen) {
@@ -124,7 +145,9 @@ export default function Header({ className = "" }: HeaderProps) {
     return () => document.removeEventListener("keydown", handleEscape);
   }, [isMenuOpen]);
 
-  // Classes dinâmicas otimizadas
+  // =========================
+  // Dynamic classes
+  // =========================
   const headerClasses = `
     fixed top-0 left-0 w-full z-50
     transition-all duration-300 ease-in-out
@@ -146,16 +169,12 @@ export default function Header({ className = "" }: HeaderProps) {
     group-hover:shadow-amber-500/40
     group-hover:scale-110 group-hover:border-amber-400
     group-hover:rotate-6
-    group-focus-visible:ring-2 group-focus-visible:ring-amber-500 
-    group-focus-visible:ring-offset-2 group-focus-visible:ring-offset-neutral-950
   `.trim();
 
   const mobileMenuClasses = `
-    md:hidden fixed inset-x-0 top-0 bottom-0 z-50
+    md:hidden fixed inset-0 z-50
     bg-neutral-950/98 backdrop-blur-xl
-    shadow-2xl shadow-black/50
-    overflow-y-auto overscroll-contain
-    transition-all duration-300 ease-in-out
+    transition-all duration-300
     ${
       isMenuOpen
         ? "opacity-100 translate-x-0"
@@ -163,155 +182,78 @@ export default function Header({ className = "" }: HeaderProps) {
     }
   `.trim();
 
+  // =========================
+  // JSX
+  // =========================
   return (
     <>
-      <header className={headerClasses} role="banner">
-        <nav
-          className="container mx-auto px-4 sm:px-6 py-4 md:py-5 flex items-center justify-between"
-          aria-label="Navegação principal"
-        >
-          {/* Logo + Marca Premium */}
+      <header className={headerClasses}>
+        <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
+          {/* Logo */}
           <button
+            type="button"
             onClick={() => scrollToSection("home")}
-            className="flex items-center gap-3 cursor-pointer select-none group focus-visible:outline-none relative"
-            aria-label="Chef Henrique - Ir para o início"
+            className="flex items-center gap-3 group"
+            aria-label="Ir para o início"
           >
             <span className={logoClasses}>
-              <ChefHat
-                className="w-5 h-5 text-amber-400 transition-all duration-300 group-hover:text-amber-300 group-hover:scale-110"
-                aria-hidden="true"
-              />
-              <Sparkles
-                className="absolute -top-1 -right-1 w-3 h-3 text-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                aria-hidden="true"
-              />
+              <ChefHat className="w-5 h-5 text-amber-400" />
+              <Sparkles className="absolute -top-1 -right-1 w-3 h-3 text-amber-400 opacity-0 group-hover:opacity-100" />
             </span>
             <div className="flex flex-col items-start">
-              <span className="text-xl md:text-2xl font-serif tracking-wide text-amber-400 group-hover:text-amber-300 transition-colors duration-300 leading-tight">
+              <span className="text-xl font-serif text-amber-400">
                 Chef Henrique
               </span>
-              <span className="text-[10px] md:text-xs text-amber-500/60 font-light tracking-widest uppercase">
+              <span className="text-xs text-amber-500/60 uppercase tracking-widest">
                 Gastronomia Premium
               </span>
             </div>
           </button>
 
-          {/* Navegação Desktop Centralizada */}
-          <div
-            className="hidden md:flex items-center space-x-8 absolute left-1/2 -translate-x-1/2"
-            role="navigation"
-          >
+          {/* Desktop */}
+          <div className="hidden md:flex absolute left-1/2 -translate-x-1/2">
             <Navigation onNavigate={scrollToSection} />
           </div>
 
-          {/* Espaçador invisível para manter o layout balanceado */}
-          <div className="hidden md:block w-[200px]" aria-hidden="true" />
+          <div className="hidden md:block w-[200px]" />
 
-          {/* Menu Mobile Toggle */}
+          {/* Mobile toggle */}
           <button
-            onClick={toggleMenu}
-            className="md:hidden text-neutral-200 transition-all duration-200 hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 rounded-lg p-1.5 -mr-1.5 touch-manipulation bg-neutral-900/50 backdrop-blur-sm border border-amber-500/20 hover:border-amber-500/40"
-            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={isMenuOpen}
-            aria-controls="mobile-menu"
             type="button"
+            onClick={toggleMenu}
+            className="md:hidden p-2 rounded-lg border border-amber-500/30"
+            aria-label="Abrir menu"
           >
             {isMenuOpen ? (
-              <X
-                className="w-6 h-6 sm:w-7 sm:h-7 text-amber-400"
-                aria-hidden="true"
-              />
+              <X className="w-6 h-6 text-amber-400" />
             ) : (
-              <Menu
-                className="w-6 h-6 sm:w-7 sm:h-7 text-amber-400"
-                aria-hidden="true"
-              />
+              <Menu className="w-6 h-6 text-amber-400" />
             )}
           </button>
         </nav>
       </header>
 
-      {/* Menu Mobile Dropdown */}
-      <div
-        id="mobile-menu"
-        className={mobileMenuClasses}
-        role="dialog"
-        aria-label="Menu de navegação mobile"
-        aria-modal="true"
-        aria-hidden={!isMenuOpen}
-      >
-        <div
-          className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-amber-600/5"
-          aria-hidden="true"
-        />
+      {/* Mobile menu */}
+      <div className={mobileMenuClasses} role="dialog" aria-modal="true">
+        <div className="px-6 py-10 space-y-6">
+          <Navigation onNavigate={scrollToSection} mobile />
 
-        <div className="relative flex flex-col h-full">
-          {/* Header do Menu Mobile */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-amber-500/10 bg-neutral-900/50 backdrop-blur-xl">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex items-center justify-center h-10 w-10 rounded-full border-2 border-amber-500/60 bg-gradient-to-br from-amber-500/10 to-amber-600/5">
-                <ChefHat
-                  className="w-5 h-5 text-amber-400"
-                  aria-hidden="true"
-                />
-              </span>
-              <div className="flex flex-col">
-                <span className="text-lg font-serif text-amber-400 leading-tight">
-                  Chef Henrique
-                </span>
-                <span className="text-[9px] text-amber-500/60 font-light tracking-widest uppercase">
-                  Gastronomia Premium
-                </span>
-              </div>
-            </div>
-            <button
-              onClick={toggleMenu}
-              className="text-neutral-200 transition-all duration-200 hover:scale-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 rounded-lg p-2 bg-neutral-800/50 border border-amber-500/20"
-              aria-label="Fechar menu"
-            >
-              <X className="w-5 h-5 text-amber-400" aria-hidden="true" />
-            </button>
-          </div>
-
-          {/* Conteúdo do Menu com Navigation */}
-          <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-10">
-            <div className="space-y-6">
-              <Navigation onNavigate={scrollToSection} mobile />
-
-              {/* CTA Mobile */}
-              <div className="pt-4 border-t border-amber-500/10">
-                <button
-                  onClick={() => scrollToSection("contato")}
-                  className="bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-neutral-950 px-8 py-4 rounded-full w-full font-semibold shadow-md shadow-amber-500/30 transition-all duration-200 hover:scale-[1.02] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-neutral-950 text-base"
-                  aria-label="Agendar uma experiência gastronômica"
-                >
-                  Agendar Experiência
-                </button>
-              </div>
-            </div>
-          </div>
-
-          {/* Footer do Menu Mobile */}
-          <div className="px-6 py-5 border-t border-amber-500/10 bg-neutral-900/80 backdrop-blur-xl">
-            <p className="text-center text-sm text-neutral-400 mb-2">
-              Salvador, Bahia - Brasil
-            </p>
-            <p className="text-center text-xs text-amber-500/60">
-              Experiências Gastronômicas Premium
-            </p>
-          </div>
+          <button
+            type="button"
+            onClick={() => scrollToSection("contato")}
+            className="w-full bg-amber-500 text-neutral-950 py-4 rounded-full font-semibold"
+          >
+            Agendar Experiência
+          </button>
         </div>
       </div>
 
-      {/* Overlay para fechar menu ao clicar fora */}
+      {/* Overlay */}
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-md z-40 md:hidden transition-opacity duration-300"
+          className="fixed inset-0 bg-black/70 z-40 md:hidden"
           onClick={toggleMenu}
-          onTouchEnd={toggleMenu}
           aria-hidden="true"
-          role="button"
-          tabIndex={-1}
         />
       )}
     </>

@@ -6,9 +6,6 @@ import {
   Phone,
   MapPin,
   Calendar,
-  Instagram,
-  Facebook,
-  Linkedin,
   ArrowRight,
   Sparkles,
   Send,
@@ -25,7 +22,7 @@ interface ContactSectionProps {
 
 type FormStatus = "idle" | "loading" | "success" | "error";
 
-interface FormData {
+interface FormDataState {
   name: string;
   email: string;
   phone: string;
@@ -36,37 +33,33 @@ interface FormData {
 const INTERSECTION_THRESHOLD = 0.1;
 const SUCCESS_MESSAGE_DURATION = 5000;
 
+// ✅ seu formspree id
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xbdrjvnw";
+
 export default function ContactSection({
   className = "",
 }: ContactSectionProps) {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [isVisible, setIsVisible] = useState(false);
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<FormDataState>({
     name: "",
     email: "",
     phone: "",
     message: "",
   });
+
   const sectionRef = useRef<HTMLElement>(null);
 
   // Intersection Observer para animações
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
+        if (entry.isIntersecting) setIsVisible(true);
       },
-      {
-        threshold: INTERSECTION_THRESHOLD,
-        rootMargin: "0px 0px -100px 0px",
-      }
+      { threshold: INTERSECTION_THRESHOLD, rootMargin: "0px 0px -100px 0px" }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
@@ -77,7 +70,17 @@ export default function ContactSection({
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async () => {
+  const resetStatusLater = () => {
+    window.setTimeout(() => setStatus("idle"), SUCCESS_MESSAGE_DURATION);
+  };
+
+  // ✅ agora recebe o event do form e evita duplo envio
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // evita clique duplo durante loading
+    if (status === "loading") return;
+
     // Validação básica
     if (
       !formData.name ||
@@ -86,34 +89,48 @@ export default function ContactSection({
       !formData.message
     ) {
       setStatus("error");
-      setTimeout(() => setStatus("idle"), SUCCESS_MESSAGE_DURATION);
+      resetStatusLater();
       return;
     }
 
     setStatus("loading");
 
     try {
-      const response = await fetch("https://formspree.io/f/SEU_FORM_ID", {
+      // ✅ Formspree mais confiável com FormData
+      const body = new FormData();
+      body.append("name", formData.name);
+      body.append("email", formData.email);
+      body.append("phone", formData.phone);
+      body.append("message", formData.message);
+      body.append("_subject", "Novo contato - Landing Chef");
+
+      // honeypot anti-spam (deve ficar vazio)
+      body.append("_gotcha", "");
+
+      const response = await fetch(FORMSPREE_ENDPOINT, {
         method: "POST",
-        body: JSON.stringify(formData),
         headers: {
           Accept: "application/json",
-          "Content-Type": "application/json",
         },
+        body,
       });
+
+      const data = await response.json().catch(() => null);
 
       if (response.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", phone: "", message: "" });
-        setTimeout(() => setStatus("idle"), SUCCESS_MESSAGE_DURATION);
+        resetStatusLater();
       } else {
+        // ✅ aqui você vai ver a causa real (403, 422, etc.)
+        console.error("Formspree failed:", response.status, data);
         setStatus("error");
-        setTimeout(() => setStatus("idle"), SUCCESS_MESSAGE_DURATION);
+        resetStatusLater();
       }
     } catch (error) {
       console.error("Error submitting form:", error);
       setStatus("error");
-      setTimeout(() => setStatus("idle"), SUCCESS_MESSAGE_DURATION);
+      resetStatusLater();
     }
   };
 
@@ -167,10 +184,7 @@ export default function ContactSection({
           {/* Header */}
           <div className={headerClasses}>
             <div className="flex items-center justify-center gap-3 mb-4">
-              <MessageSquare
-                className="w-8 h-8 sm:w-10 sm:h-10 text-amber-500"
-                aria-hidden="true"
-              />
+              <MessageSquare className="w-8 h-8 sm:w-10 sm:h-10 text-amber-500" />
               <h2
                 id="contact-heading"
                 className="text-3xl sm:text-4xl md:text-5xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500"
@@ -182,33 +196,28 @@ export default function ContactSection({
               Vamos criar uma experiência gastronômica memorável juntos
             </p>
             <div className="flex items-center justify-center gap-2 mt-4">
-              <span
-                className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500"
-                aria-hidden="true"
-              />
-              <Sparkles className="w-4 h-4 text-amber-500" aria-hidden="true" />
-              <span
-                className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500"
-                aria-hidden="true"
-              />
+              <span className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500" />
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500" />
             </div>
           </div>
 
           {/* Content Grid */}
           <div
             className={`
-            grid md:grid-cols-2 gap-8 lg:gap-16
-            transition-all duration-700 delay-200
-            ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-8"
-            }
-          `}
+              grid md:grid-cols-2 gap-8 lg:gap-16
+              transition-all duration-700 delay-200
+              ${
+                isVisible
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-8"
+              }
+            `}
           >
             {/* Formulário */}
             <div className="order-2 md:order-1">
-              <div className="space-y-4 sm:space-y-6">
+              {/* ✅ FORM de verdade */}
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 {/* Nome */}
                 <div>
                   <label htmlFor="name" className="sr-only">
@@ -362,7 +371,7 @@ export default function ContactSection({
 
                 {/* Submit Button */}
                 <button
-                  onClick={handleSubmit}
+                  type="submit"
                   disabled={status === "loading"}
                   className="
                     group/submit relative w-full
@@ -382,7 +391,6 @@ export default function ContactSection({
                     overflow-hidden
                   "
                 >
-                  {/* Shimmer effect */}
                   <span
                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/submit:translate-x-full transition-transform duration-1000"
                     aria-hidden="true"
@@ -414,7 +422,7 @@ export default function ContactSection({
                 <p className="text-xs sm:text-sm text-neutral-500 text-center">
                   * Campos obrigatórios
                 </p>
-              </div>
+              </form>
             </div>
 
             {/* Informações de Contato */}
@@ -422,10 +430,7 @@ export default function ContactSection({
               {/* Email */}
               <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-neutral-800/30 backdrop-blur-sm border border-neutral-700/30 hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-1">
                 <div className="p-3 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <Mail
-                    className="w-5 h-5 sm:w-6 sm:h-6 text-white"
-                    aria-hidden="true"
-                  />
+                  <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-white mb-1 text-sm sm:text-base">
@@ -443,10 +448,7 @@ export default function ContactSection({
               {/* Telefone */}
               <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-neutral-800/30 backdrop-blur-sm border border-neutral-700/30 hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-1">
                 <div className="p-3 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <Phone
-                    className="w-5 h-5 sm:w-6 sm:h-6 text-white"
-                    aria-hidden="true"
-                  />
+                  <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-white mb-1 text-sm sm:text-base">
@@ -464,10 +466,7 @@ export default function ContactSection({
               {/* Localização */}
               <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-neutral-800/30 backdrop-blur-sm border border-neutral-700/30 hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-1">
                 <div className="p-3 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <MapPin
-                    className="w-5 h-5 sm:w-6 sm:h-6 text-white"
-                    aria-hidden="true"
-                  />
+                  <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-white mb-1 text-sm sm:text-base">
@@ -482,10 +481,7 @@ export default function ContactSection({
               {/* Horário */}
               <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-neutral-800/30 backdrop-blur-sm border border-neutral-700/30 hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-1">
                 <div className="p-3 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-300">
-                  <Calendar
-                    className="w-5 h-5 sm:w-6 sm:h-6 text-white"
-                    aria-hidden="true"
-                  />
+                  <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-white mb-2 text-sm sm:text-base">
@@ -502,7 +498,7 @@ export default function ContactSection({
         </div>
       </div>
 
-      {/* ✅ MUDANÇA 2: Botão Flutuante WhatsApp - Removido animate-ping */}
+      {/* Botão Flutuante WhatsApp */}
       <a
         href="https://wa.me/5571996467680"
         target="_blank"
