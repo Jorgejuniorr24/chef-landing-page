@@ -59,8 +59,8 @@ const dishes: Dish[] = [
 // Category colors mapping
 const categoryColors: Record<string, string> = {
   entrada: "from-emerald-500 to-teal-500",
-  principal: "from-amber-500 to-orange-500",
-  sobremesa: "from-pink-500 to-rose-500",
+  principal: "from-emerald-600 to-emerald-700",
+  sobremesa: "from-teal-500 to-emerald-600",
 };
 
 export default function DishesSection({ className = "" }: DishesSectionProps) {
@@ -115,6 +115,7 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
   const sectionClasses = `
     py-16 sm:py-20 md:py-24 lg:py-28 
     relative overflow-hidden
+    bg-gradient-to-b from-slate-50 to-white
     ${className}
   `.trim();
 
@@ -132,17 +133,11 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
         className={sectionClasses}
         aria-labelledby="dishes-heading"
       >
-        {/* Background com gradientes */}
-        <div
-          className="absolute inset-0 bg-gradient-to-b from-neutral-800 via-neutral-800/95 to-neutral-900"
-          aria-hidden="true"
-        />
-
         {/* Pattern overlay */}
         <div
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0 opacity-[0.015]"
           style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgb(245 158 11) 1px, transparent 0)`,
+            backgroundImage: `radial-gradient(circle at 1px 1px, rgb(5 150 105) 1px, transparent 0)`,
             backgroundSize: "40px 40px",
           }}
           aria-hidden="true"
@@ -150,11 +145,11 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
 
         {/* Decorative blurs */}
         <div
-          className="absolute top-1/4 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px]"
+          className="absolute top-1/4 right-0 w-96 h-96 bg-emerald-500/8 rounded-full blur-[120px]"
           aria-hidden="true"
         />
         <div
-          className="absolute bottom-1/4 left-0 w-96 h-96 bg-orange-500/10 rounded-full blur-[120px]"
+          className="absolute bottom-1/4 left-0 w-96 h-96 bg-emerald-600/8 rounded-full blur-[120px]"
           aria-hidden="true"
         />
 
@@ -163,27 +158,30 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
           <div className={headerClasses}>
             <div className="flex items-center justify-center gap-3 mb-4">
               <ChefHat
-                className="w-8 h-8 sm:w-10 sm:h-10 text-amber-500"
+                className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-600"
                 aria-hidden="true"
               />
               <h2
                 id="dishes-heading"
-                className="text-3xl sm:text-4xl md:text-5xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500"
+                className="text-3xl sm:text-4xl md:text-5xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-600"
               >
                 Pratos Assinatura
               </h2>
             </div>
-            <p className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="text-slate-700 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
               Criações que celebram ingredientes premium e técnicas refinadas
             </p>
             <div className="flex items-center justify-center gap-2 mt-4">
               <span
-                className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500"
+                className="h-px w-12 bg-gradient-to-r from-transparent to-emerald-600"
                 aria-hidden="true"
               />
-              <Utensils className="w-4 h-4 text-amber-500" aria-hidden="true" />
+              <Utensils
+                className="w-4 h-4 text-emerald-600"
+                aria-hidden="true"
+              />
               <span
-                className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500"
+                className="h-px w-12 bg-gradient-to-l from-transparent to-emerald-600"
                 aria-hidden="true"
               />
             </div>
@@ -193,7 +191,8 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-7xl mx-auto">
             {dishes.map((dish, index) => {
               const categoryColor =
-                categoryColors[dish.category] || "from-amber-500 to-orange-500";
+                categoryColors[dish.category] ||
+                "from-emerald-600 to-emerald-700";
 
               return (
                 <article
@@ -217,7 +216,7 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
                   aria-label={`${dish.name} - ${dish.category}`}
                 >
                   {/* Image Container */}
-                  <div className="relative overflow-hidden rounded-2xl mb-4 h-72 sm:h-80 shadow-xl shadow-neutral-900/50 group-hover:shadow-2xl group-hover:shadow-amber-500/20 transition-shadow duration-500">
+                  <div className="relative overflow-hidden rounded-2xl mb-4 h-72 sm:h-80 shadow-xl shadow-slate-900/10 group-hover:shadow-2xl group-hover:shadow-emerald-500/20 transition-shadow duration-500 border border-slate-200/50">
                     {/* Image */}
                     <img
                       src={dish.image}
@@ -244,7 +243,7 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
 
                       {/* Content on hover/mobile */}
                       <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6">
-                        <h3 className="font-serif text-xl sm:text-2xl text-white mb-2 group-hover:text-amber-400 transition-colors duration-300">
+                        <h3 className="font-serif text-xl sm:text-2xl text-white mb-2 group-hover:text-emerald-400 transition-colors duration-300">
                           {dish.name}
                         </h3>
                         <p className="text-neutral-300 text-sm sm:text-base leading-relaxed">
@@ -256,10 +255,10 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
 
                   {/* Info below image (desktop) */}
                   <div className="hidden sm:block">
-                    <h3 className="font-serif text-xl text-white mb-2 group-hover:text-amber-400 transition-colors duration-300">
+                    <h3 className="font-serif text-xl text-slate-900 mb-2 group-hover:text-emerald-700 transition-colors duration-300">
                       {dish.name}
                     </h3>
-                    <p className="text-neutral-400 text-sm leading-relaxed">
+                    <p className="text-slate-600 text-sm leading-relaxed">
                       {dish.description}
                     </p>
                   </div>
@@ -277,13 +276,13 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
           onClick={closeModal}
         >
           <div
-            className="relative max-w-4xl w-full bg-neutral-900 rounded-2xl overflow-hidden shadow-2xl shadow-amber-500/20 animate-in zoom-in-95 duration-300"
+            className="relative max-w-4xl w-full bg-white rounded-2xl overflow-hidden shadow-2xl shadow-emerald-500/20 animate-in zoom-in-95 duration-300"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close button */}
             <button
               onClick={closeModal}
-              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-neutral-950/80 backdrop-blur-sm text-neutral-300 hover:text-white hover:bg-neutral-950 transition-all duration-200 hover:scale-110"
+              className="absolute top-4 right-4 z-10 p-2 rounded-full bg-slate-100/90 backdrop-blur-sm text-slate-700 hover:text-slate-900 hover:bg-slate-200 transition-all duration-200 hover:scale-110"
               aria-label="Fechar"
             >
               <X className="w-6 h-6" />
@@ -312,10 +311,10 @@ export default function DishesSection({ className = "" }: DishesSectionProps) {
 
               {/* Content */}
               <div className="p-8 md:p-10 flex flex-col justify-center">
-                <h3 className="font-serif text-3xl md:text-4xl text-white mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">
+                <h3 className="font-serif text-3xl md:text-4xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-emerald-700">
                   {selectedDish.name}
                 </h3>
-                <p className="text-neutral-300 text-lg leading-relaxed">
+                <p className="text-slate-700 text-lg leading-relaxed">
                   {selectedDish.description}
                 </p>
               </div>

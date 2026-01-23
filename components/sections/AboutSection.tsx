@@ -134,9 +134,9 @@ const SectionDivider = memo(() => (
     className="flex items-center justify-center gap-2 mt-4"
     role="presentation"
   >
-    <span className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500" />
-    <Sparkles className="w-4 h-4 text-amber-500" aria-hidden="true" />
-    <span className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500" />
+    <span className="h-px w-12 bg-gradient-to-r from-transparent to-emerald-600" />
+    <Sparkles className="w-4 h-4 text-emerald-600" aria-hidden="true" />
+    <span className="h-px w-12 bg-gradient-to-l from-transparent to-emerald-600" />
   </div>
 ));
 SectionDivider.displayName = "SectionDivider";
@@ -149,17 +149,17 @@ const ChefImage = memo<ChefImageProps>(({ isVisible }) => (
   <div className="relative order-2 md:order-1">
     {/* Decorative background */}
     <div
-      className="absolute -inset-3 sm:-inset-4 bg-gradient-to-br from-amber-500/20 via-orange-500/10 to-transparent rounded-2xl blur-xl"
+      className="absolute -inset-3 sm:-inset-4 bg-gradient-to-br from-emerald-500/20 via-emerald-600/10 to-transparent rounded-2xl blur-xl"
       aria-hidden="true"
     />
 
     <div
       className={`
-        relative w-full h-[400px] sm:h-[500px] md:h-[600px]
-        rounded-2xl overflow-hidden
-        transition-all duration-700
-        ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}
-      `}
+    relative w-full h-[400px] sm:h-[500px] md:h-[600px]
+    rounded-2xl overflow-hidden
+    transition-all duration-700 transform scale-[0.8]
+    ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}
+  `}
     >
       <Image
         src={CHEF_INFO.image}
@@ -176,8 +176,6 @@ const ChefImage = memo<ChefImageProps>(({ isVisible }) => (
         className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 via-transparent to-transparent"
         aria-hidden="true"
       />
-
-      
     </div>
   </div>
 ));
@@ -188,9 +186,9 @@ interface AchievementProps {
 }
 
 const Achievement = memo<AchievementProps>(({ text }) => (
-  <div className="flex items-center gap-2 text-sm text-neutral-400 bg-neutral-900/50 rounded-lg px-3 py-2 border border-neutral-800/50">
+  <div className="flex items-center gap-2 text-sm text-slate-700 bg-white/50 rounded-lg px-3 py-2 border border-slate-200/50">
     <CheckCircle2
-      className="w-4 h-4 text-amber-500 flex-shrink-0"
+      className="w-4 h-4 text-emerald-600 flex-shrink-0"
       aria-hidden="true"
     />
     <span>{text}</span>
@@ -204,16 +202,16 @@ interface SkillBadgeProps {
 
 const SkillBadge = memo<SkillBadgeProps>(({ name }) => (
   <span className="flex items-center gap-1.5">
-    <span className="w-1 h-1 rounded-full bg-amber-500" aria-hidden="true" />
+    <span className="w-1 h-1 rounded-full bg-emerald-600" aria-hidden="true" />
     {name}
   </span>
 ));
 SkillBadge.displayName = "SkillBadge";
 
 const StatBadge = memo<Stat>(({ number, label }) => (
-  <div className="inline-flex items-center gap-1.5 bg-neutral-900/50 border border-neutral-800/50 rounded-lg px-3 py-1.5 text-[11px] sm:text-xs">
-    <span className="text-amber-400 font-bold">{number}</span>
-    <span className="text-neutral-300">{label}</span>
+  <div className="inline-flex items-center gap-1.5 bg-emerald-50/50 border border-emerald-200/50 rounded-lg px-3 py-1.5 text-[11px] sm:text-xs">
+    <span className="text-emerald-600 font-bold">{number}</span>
+    <span className="text-slate-700">{label}</span>
   </div>
 ));
 StatBadge.displayName = "StatBadge";
@@ -224,9 +222,9 @@ interface BiographyProps {
 
 const Biography = memo<BiographyProps>(({ isVisible }) => (
   <div className="space-y-4 sm:space-y-5 mb-6 sm:mb-8">
-    <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
+    <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
       Com formação em{" "}
-      <strong className="text-white font-semibold">
+      <strong className="text-slate-900 font-semibold">
         Gastronomia pela UNIFACS
       </strong>{" "}
       e ampla experiência entre cozinha e atendimento, Henrique Menezes
@@ -235,10 +233,10 @@ const Biography = memo<BiographyProps>(({ isVisible }) => (
       para o salão, área que despertou seu interesse por vinhos e harmonização.
     </p>
 
-    <p className="text-neutral-300 text-base sm:text-lg leading-relaxed">
+    <p className="text-slate-700 text-base sm:text-lg leading-relaxed">
       Unindo conhecimento culinário, domínio do inglês e experiência direta com
       o público, Henrique entrega um{" "}
-      <strong className="text-white font-semibold">
+      <strong className="text-slate-900 font-semibold">
         atendimento refinado e personalizado
       </strong>
       . Atua também em consultorias de cardápio, explorando criatividade e
@@ -264,11 +262,11 @@ const SkillsAndStats = memo<SkillsAndStatsProps>(({ isVisible }) => (
   <div className="mb-6 space-y-3">
     {/* Skills */}
     <div>
-      <h4 className="text-white font-semibold mb-2 flex items-center gap-2 text-xs sm:text-sm">
-        <Sparkles className="w-4 h-4 text-amber-500" aria-hidden="true" />
+      <h4 className="text-slate-900 font-semibold mb-2 flex items-center gap-2 text-xs sm:text-sm">
+        <Sparkles className="w-4 h-4 text-emerald-600" aria-hidden="true" />
         Especialidades
       </h4>
-      <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[11px] sm:text-xs text-neutral-300">
+      <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-[11px] sm:text-xs text-slate-700">
         {SKILLS.map((skill) => (
           <SkillBadge key={skill.name} name={skill.name} />
         ))}
@@ -302,28 +300,24 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
     <section
       ref={sectionRef}
       id="sobre"
-      className={`py-12 sm:py-16 md:py-20 lg:py-22 relative overflow-hidden ${className}`}
+      className={`py-12 sm:py-16 md:py-20 lg:py-22 relative overflow-hidden bg-gradient-to-b from-slate-50 to-white ${className}`}
       aria-labelledby="about-heading"
     >
       {/* Background Effects */}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-neutral-800 via-neutral-850 to-neutral-900"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.015]"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(245 158 11) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(5 150 105) 1px, transparent 0)`,
           backgroundSize: "40px 40px",
         }}
         aria-hidden="true"
       />
       <div
-        className="absolute top-1/4 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px]"
+        className="absolute top-1/4 right-0 w-96 h-96 bg-emerald-500/8 rounded-full blur-[120px]"
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-1/4 left-0 w-96 h-96 bg-orange-500/10 rounded-full blur-[120px]"
+        className="absolute bottom-1/4 left-0 w-96 h-96 bg-emerald-600/8 rounded-full blur-[120px]"
         aria-hidden="true"
       />
 
@@ -341,7 +335,7 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
         >
           <h2
             id="about-heading"
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-serif mb-3 sm:mb-4 text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-600"
           >
             Sobre o Chef
           </h2>
@@ -370,12 +364,12 @@ export default function AboutSection({ className = "" }: AboutSectionProps) {
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <button
                 onClick={handleMenuClick}
-                className="btn-chef group"
+                className="inline-flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 shadow-lg hover:shadow-xl"
                 aria-label="Ver menu de pratos do Chef Henrique"
               >
-                <span className="btn-chef__content">Ver Menu</span>
+                <span>Ver Menu</span>
                 <ArrowRight
-                  className="btn-chef__content w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform"
+                  className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform"
                   aria-hidden="true"
                 />
               </button>

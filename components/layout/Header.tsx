@@ -153,8 +153,8 @@ export default function Header({ className = "" }: HeaderProps) {
     transition-all duration-300 ease-in-out
     ${
       isScrolled
-        ? "bg-neutral-950/95 backdrop-blur-xl border-b border-neutral-800 shadow-lg shadow-black/40"
-        : "bg-gradient-to-b from-neutral-950/95 via-neutral-950/70 to-transparent"
+        ? "bg-slate-950/95 backdrop-blur-xl border-b border-emerald-900/30 shadow-lg shadow-black/40"
+        : "bg-gradient-to-b from-slate-950/95 via-slate-950/80 to-transparent"
     }
     ${isScrollingDown && isScrolled ? "-translate-y-full" : "translate-y-0"}
     ${className}
@@ -163,17 +163,17 @@ export default function Header({ className = "" }: HeaderProps) {
   const logoClasses = `
     relative inline-flex items-center justify-center h-11 w-11 rounded-full
     border-2 transition-all duration-500
-    ${isScrolled ? "border-amber-500/60" : "border-amber-500/40"}
-    bg-gradient-to-br from-amber-500/10 to-amber-600/5
-    shadow-lg shadow-amber-500/20
-    group-hover:shadow-amber-500/40
-    group-hover:scale-110 group-hover:border-amber-400
+    ${isScrolled ? "border-emerald-600/70" : "border-emerald-600/50"}
+    bg-gradient-to-br from-emerald-600/15 to-emerald-700/10
+    shadow-lg shadow-emerald-600/25
+    group-hover:shadow-emerald-500/50
+    group-hover:scale-110 group-hover:border-emerald-500
     group-hover:rotate-6
   `.trim();
 
   const mobileMenuClasses = `
     md:hidden fixed inset-0 z-50
-    bg-neutral-950/98 backdrop-blur-xl
+    bg-slate-950/98 backdrop-blur-xl
     transition-all duration-300
     ${
       isMenuOpen
@@ -197,14 +197,14 @@ export default function Header({ className = "" }: HeaderProps) {
             aria-label="Ir para o início"
           >
             <span className={logoClasses}>
-              <ChefHat className="w-5 h-5 text-amber-400" />
-              <Sparkles className="absolute -top-1 -right-1 w-3 h-3 text-amber-400 opacity-0 group-hover:opacity-100" />
+              <ChefHat className="w-5 h-5 text-emerald-500" />
+              <Sparkles className="absolute -top-1 -right-1 w-3 h-3 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </span>
             <div className="flex flex-col items-start">
-              <span className="text-xl font-serif text-amber-400">
+              <span className="text-xl font-serif text-emerald-500">
                 Chef Henrique
               </span>
-              <span className="text-xs text-amber-500/60 uppercase tracking-widest">
+              <span className="text-[10px] text-emerald-600/70 uppercase tracking-[0.15em] font-light">
                 Gastronomia Premium
               </span>
             </div>
@@ -221,13 +221,13 @@ export default function Header({ className = "" }: HeaderProps) {
           <button
             type="button"
             onClick={toggleMenu}
-            className="md:hidden p-2 rounded-lg border border-amber-500/30"
-            aria-label="Abrir menu"
+            className="md:hidden p-2 rounded-lg border border-emerald-600/40 hover:border-emerald-500/60 hover:bg-emerald-600/10 transition-all duration-300"
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
           >
             {isMenuOpen ? (
-              <X className="w-6 h-6 text-amber-400" />
+              <X className="w-6 h-6 text-emerald-500" />
             ) : (
-              <Menu className="w-6 h-6 text-amber-400" />
+              <Menu className="w-6 h-6 text-emerald-500" />
             )}
           </button>
         </nav>
@@ -241,7 +241,7 @@ export default function Header({ className = "" }: HeaderProps) {
           <button
             type="button"
             onClick={() => scrollToSection("contato")}
-            className="w-full bg-amber-500 text-neutral-950 py-4 rounded-full font-semibold"
+            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-emerald-600/40 active:scale-95"
           >
             Agendar Experiência
           </button>

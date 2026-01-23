@@ -33,7 +33,6 @@ interface FormDataState {
 const INTERSECTION_THRESHOLD = 0.1;
 const SUCCESS_MESSAGE_DURATION = 5000;
 
-// ✅ seu formspree id
 const FORMSPREE_ENDPOINT = "https://formspree.io/f/xbdrjvnw";
 
 export default function ContactSection({
@@ -74,14 +73,11 @@ export default function ContactSection({
     window.setTimeout(() => setStatus("idle"), SUCCESS_MESSAGE_DURATION);
   };
 
-  // ✅ agora recebe o event do form e evita duplo envio
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    // evita clique duplo durante loading
     if (status === "loading") return;
 
-    // Validação básica
     if (
       !formData.name ||
       !formData.email ||
@@ -96,15 +92,12 @@ export default function ContactSection({
     setStatus("loading");
 
     try {
-      // ✅ Formspree mais confiável com FormData
       const body = new FormData();
       body.append("name", formData.name);
       body.append("email", formData.email);
       body.append("phone", formData.phone);
       body.append("message", formData.message);
       body.append("_subject", "Novo contato - Landing Chef");
-
-      // honeypot anti-spam (deve ficar vazio)
       body.append("_gotcha", "");
 
       const response = await fetch(FORMSPREE_ENDPOINT, {
@@ -122,7 +115,6 @@ export default function ContactSection({
         setFormData({ name: "", email: "", phone: "", message: "" });
         resetStatusLater();
       } else {
-        // ✅ aqui você vai ver a causa real (403, 422, etc.)
         console.error("Formspree failed:", response.status, data);
         setStatus("error");
         resetStatusLater();
@@ -137,6 +129,7 @@ export default function ContactSection({
   const sectionClasses = `
     py-16 sm:py-20 md:py-24 lg:py-28 
     relative overflow-hidden
+    bg-gradient-to-b from-slate-50 to-white
     ${className}
   `.trim();
 
@@ -153,17 +146,11 @@ export default function ContactSection({
       className={sectionClasses}
       aria-labelledby="contact-heading"
     >
-      {/* Background com gradientes */}
-      <div
-        className="absolute inset-0 bg-gradient-to-b from-neutral-900 via-neutral-900/95 to-neutral-950"
-        aria-hidden="true"
-      />
-
       {/* Pattern overlay */}
       <div
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-[0.015]"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(245 158 11) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(5 150 105) 1px, transparent 0)`,
           backgroundSize: "40px 40px",
         }}
         aria-hidden="true"
@@ -171,11 +158,11 @@ export default function ContactSection({
 
       {/* Decorative blurs */}
       <div
-        className="absolute top-1/4 left-0 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px]"
+        className="absolute top-1/4 left-0 w-96 h-96 bg-emerald-500/8 rounded-full blur-[120px]"
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-1/4 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-[120px]"
+        className="absolute bottom-1/4 right-0 w-96 h-96 bg-emerald-600/8 rounded-full blur-[120px]"
         aria-hidden="true"
       />
 
@@ -184,21 +171,21 @@ export default function ContactSection({
           {/* Header */}
           <div className={headerClasses}>
             <div className="flex items-center justify-center gap-3 mb-4">
-              <MessageSquare className="w-8 h-8 sm:w-10 sm:h-10 text-amber-500" />
+              <MessageSquare className="w-8 h-8 sm:w-10 sm:h-10 text-emerald-600" />
               <h2
                 id="contact-heading"
-                className="text-3xl sm:text-4xl md:text-5xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-500 to-orange-500"
+                className="text-3xl sm:text-4xl md:text-5xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-600"
               >
                 Entre em Contato
               </h2>
             </div>
-            <p className="text-neutral-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="text-slate-700 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
               Vamos criar uma experiência gastronômica memorável juntos
             </p>
             <div className="flex items-center justify-center gap-2 mt-4">
-              <span className="h-px w-12 bg-gradient-to-r from-transparent to-amber-500" />
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              <span className="h-px w-12 bg-gradient-to-l from-transparent to-amber-500" />
+              <span className="h-px w-12 bg-gradient-to-r from-transparent to-emerald-600" />
+              <Sparkles className="w-4 h-4 text-emerald-600" />
+              <span className="h-px w-12 bg-gradient-to-l from-transparent to-emerald-600" />
             </div>
           </div>
 
@@ -216,7 +203,6 @@ export default function ContactSection({
           >
             {/* Formulário */}
             <div className="order-2 md:order-1">
-              {/* ✅ FORM de verdade */}
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 {/* Nome */}
                 <div>
@@ -234,14 +220,14 @@ export default function ContactSection({
                     disabled={status === "loading"}
                     className="
                       w-full px-4 py-3 sm:py-4 
-                      bg-neutral-800/50 backdrop-blur-sm
-                      border border-neutral-700/50 
-                      text-white placeholder:text-neutral-500
+                      bg-white
+                      border border-slate-300
+                      text-slate-900 placeholder:text-slate-500
                       rounded-xl
                       transition-all duration-300
-                      focus:outline-none focus:border-amber-500 
-                      focus:ring-2 focus:ring-amber-500/50
-                      hover:border-neutral-600
+                      focus:outline-none focus:border-emerald-600
+                      focus:ring-2 focus:ring-emerald-600/50
+                      hover:border-slate-400
                       disabled:opacity-50 disabled:cursor-not-allowed
                     "
                   />
@@ -263,14 +249,14 @@ export default function ContactSection({
                     disabled={status === "loading"}
                     className="
                       w-full px-4 py-3 sm:py-4 
-                      bg-neutral-800/50 backdrop-blur-sm
-                      border border-neutral-700/50 
-                      text-white placeholder:text-neutral-500
+                      bg-white
+                      border border-slate-300
+                      text-slate-900 placeholder:text-slate-500
                       rounded-xl
                       transition-all duration-300
-                      focus:outline-none focus:border-amber-500 
-                      focus:ring-2 focus:ring-amber-500/50
-                      hover:border-neutral-600
+                      focus:outline-none focus:border-emerald-600
+                      focus:ring-2 focus:ring-emerald-600/50
+                      hover:border-slate-400
                       disabled:opacity-50 disabled:cursor-not-allowed
                     "
                   />
@@ -292,14 +278,14 @@ export default function ContactSection({
                     disabled={status === "loading"}
                     className="
                       w-full px-4 py-3 sm:py-4 
-                      bg-neutral-800/50 backdrop-blur-sm
-                      border border-neutral-700/50 
-                      text-white placeholder:text-neutral-500
+                      bg-white
+                      border border-slate-300
+                      text-slate-900 placeholder:text-slate-500
                       rounded-xl
                       transition-all duration-300
-                      focus:outline-none focus:border-amber-500 
-                      focus:ring-2 focus:ring-amber-500/50
-                      hover:border-neutral-600
+                      focus:outline-none focus:border-emerald-600
+                      focus:ring-2 focus:ring-emerald-600/50
+                      hover:border-slate-400
                       disabled:opacity-50 disabled:cursor-not-allowed
                     "
                   />
@@ -321,14 +307,14 @@ export default function ContactSection({
                     disabled={status === "loading"}
                     className="
                       w-full px-4 py-3 sm:py-4 
-                      bg-neutral-800/50 backdrop-blur-sm
-                      border border-neutral-700/50 
-                      text-white placeholder:text-neutral-500
+                      bg-white
+                      border border-slate-300
+                      text-slate-900 placeholder:text-slate-500
                       rounded-xl
                       transition-all duration-300
-                      focus:outline-none focus:border-amber-500 
-                      focus:ring-2 focus:ring-amber-500/50
-                      hover:border-neutral-600
+                      focus:outline-none focus:border-emerald-600
+                      focus:ring-2 focus:ring-emerald-600/50
+                      hover:border-slate-400
                       resize-none
                       disabled:opacity-50 disabled:cursor-not-allowed
                     "
@@ -340,13 +326,13 @@ export default function ContactSection({
                   <div
                     className="
                       flex items-center gap-3 p-4 
-                      bg-emerald-500/10 border border-emerald-500/50 
-                      rounded-xl text-emerald-400
+                      bg-emerald-50 border border-emerald-500/50 
+                      rounded-xl text-emerald-700
                     "
                     role="alert"
                   >
                     <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                    <p className="text-sm sm:text-base">
+                    <p className="text-sm sm:text-base font-medium">
                       Mensagem enviada com sucesso! Responderemos em breve.
                     </p>
                   </div>
@@ -356,13 +342,13 @@ export default function ContactSection({
                   <div
                     className="
                       flex items-center gap-3 p-4 
-                      bg-red-500/10 border border-red-500/50 
-                      rounded-xl text-red-400
+                      bg-red-50 border border-red-500/50 
+                      rounded-xl text-red-700
                     "
                     role="alert"
                   >
                     <XCircle className="w-5 h-5 flex-shrink-0" />
-                    <p className="text-sm sm:text-base">
+                    <p className="text-sm sm:text-base font-medium">
                       Erro ao enviar mensagem. Verifique os campos e tente
                       novamente.
                     </p>
@@ -376,30 +362,29 @@ export default function ContactSection({
                   className="
                     group/submit relative w-full
                     inline-flex items-center justify-center gap-3
-                    bg-gradient-to-r from-amber-500 to-amber-600
-                    hover:from-amber-400 hover:to-amber-500
-                    text-neutral-950 px-6 py-3 sm:py-4
+                    bg-emerald-600 hover:bg-emerald-700
+                    text-white px-6 py-3 sm:py-4
                     rounded-xl font-bold text-sm sm:text-base
                     transition-all duration-300
-                    hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/40
+                    hover:scale-[1.02] hover:shadow-2xl hover:shadow-emerald-600/40
                     active:scale-95
                     disabled:opacity-50 disabled:cursor-not-allowed
                     disabled:hover:scale-100
                     focus-visible:outline-none focus-visible:ring-2 
-                    focus-visible:ring-amber-500 focus-visible:ring-offset-2 
-                    focus-visible:ring-offset-neutral-900
+                    focus-visible:ring-emerald-600 focus-visible:ring-offset-2 
+                    focus-visible:ring-offset-white
                     overflow-hidden
                   "
                 >
                   <span
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover/submit:translate-x-full transition-transform duration-1000"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover/submit:translate-x-full transition-transform duration-1000"
                     aria-hidden="true"
                   />
 
                   {status === "loading" ? (
                     <>
                       <div
-                        className="w-5 h-5 border-2 border-neutral-950/30 border-t-neutral-950 rounded-full animate-spin"
+                        className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"
                         aria-hidden="true"
                       />
                       <span className="relative z-10">Enviando...</span>
@@ -419,7 +404,7 @@ export default function ContactSection({
                   )}
                 </button>
 
-                <p className="text-xs sm:text-sm text-neutral-500 text-center">
+                <p className="text-xs sm:text-sm text-slate-500 text-center">
                   * Campos obrigatórios
                 </p>
               </form>
@@ -428,17 +413,17 @@ export default function ContactSection({
             {/* Informações de Contato */}
             <div className="order-1 md:order-2 space-y-6 sm:space-y-8">
               {/* Email */}
-              <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-neutral-800/30 backdrop-blur-sm border border-neutral-700/30 hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-1">
-                <div className="p-3 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-300">
+              <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-white border border-slate-200 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md">
+                <div className="p-3 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform duration-300">
                   <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-white mb-1 text-sm sm:text-base">
+                  <p className="font-semibold text-slate-900 mb-1 text-sm sm:text-base">
                     E-mail
                   </p>
                   <a
                     href="mailto:contato@chefhenrique.com.br"
-                    className="text-neutral-400 hover:text-amber-400 transition-colors text-sm sm:text-base break-all"
+                    className="text-slate-600 hover:text-emerald-700 transition-colors text-sm sm:text-base break-all"
                   >
                     contato@chefhenrique.com.br
                   </a>
@@ -446,17 +431,17 @@ export default function ContactSection({
               </div>
 
               {/* Telefone */}
-              <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-neutral-800/30 backdrop-blur-sm border border-neutral-700/30 hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-1">
-                <div className="p-3 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-300">
+              <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-white border border-slate-200 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md">
+                <div className="p-3 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform duration-300">
                   <Phone className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-white mb-1 text-sm sm:text-base">
+                  <p className="font-semibold text-slate-900 mb-1 text-sm sm:text-base">
                     Telefone
                   </p>
                   <a
                     href="tel:+5571996467680"
-                    className="text-neutral-400 hover:text-amber-400 transition-colors text-sm sm:text-base"
+                    className="text-slate-600 hover:text-emerald-700 transition-colors text-sm sm:text-base"
                   >
                     +55 (71) 99646-7680
                   </a>
@@ -464,30 +449,30 @@ export default function ContactSection({
               </div>
 
               {/* Localização */}
-              <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-neutral-800/30 backdrop-blur-sm border border-neutral-700/30 hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-1">
-                <div className="p-3 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-300">
+              <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-white border border-slate-200 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md">
+                <div className="p-3 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform duration-300">
                   <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-white mb-1 text-sm sm:text-base">
+                  <p className="font-semibold text-slate-900 mb-1 text-sm sm:text-base">
                     Localização
                   </p>
-                  <p className="text-neutral-400 text-sm sm:text-base">
+                  <p className="text-slate-600 text-sm sm:text-base">
                     Salvador, Bahia - Brasil
                   </p>
                 </div>
               </div>
 
               {/* Horário */}
-              <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-neutral-800/30 backdrop-blur-sm border border-neutral-700/30 hover:border-amber-500/50 transition-all duration-300 hover:-translate-y-1">
-                <div className="p-3 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 shadow-lg shadow-amber-500/20 group-hover:scale-110 transition-transform duration-300">
+              <div className="group flex items-start gap-4 p-4 sm:p-6 rounded-xl bg-white border border-slate-200 hover:border-emerald-500/50 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md">
+                <div className="p-3 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 shadow-lg shadow-emerald-500/20 group-hover:scale-110 transition-transform duration-300">
                   <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-white mb-2 text-sm sm:text-base">
+                  <p className="font-semibold text-slate-900 mb-2 text-sm sm:text-base">
                     Horário de Atendimento
                   </p>
-                  <div className="space-y-1 text-neutral-400 text-sm sm:text-base">
+                  <div className="space-y-1 text-slate-600 text-sm sm:text-base">
                     <p>Segunda - Sexta: 9h às 18h</p>
                     <p>Sábado: 10h às 14h</p>
                   </div>
@@ -516,7 +501,7 @@ export default function ContactSection({
           z-50
           focus-visible:outline-none focus-visible:ring-2 
           focus-visible:ring-green-500 focus-visible:ring-offset-2 
-          focus-visible:ring-offset-neutral-900
+          focus-visible:ring-offset-white
         "
         aria-label="Contato via WhatsApp"
       >

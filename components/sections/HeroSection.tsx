@@ -49,8 +49,8 @@ const ScrollIndicator = memo(() => (
     role="presentation"
     aria-hidden="true"
   >
-    <div className="w-6 h-10 border-2 border-amber-500/60 rounded-full flex justify-center p-1">
-      <div className="w-1.5 h-3 bg-amber-500 rounded-full animate-pulse" />
+    <div className="w-6 h-10 border-2 border-emerald-500/60 rounded-full flex justify-center p-1">
+      <div className="w-1.5 h-3 bg-emerald-500 rounded-full animate-pulse" />
     </div>
   </div>
 ));
@@ -108,7 +108,7 @@ export default function HeroSection({ className = "" }: HeroSectionProps) {
             <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white">
               {HERO_CONTENT.title.line2}
             </span>
-            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 bg-clip-text text-transparent mt-1">
+            <span className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent mt-1">
               {HERO_CONTENT.title.highlight}
             </span>
           </h1>
@@ -124,15 +124,15 @@ export default function HeroSection({ className = "" }: HeroSectionProps) {
               onClick={handleCtaClick}
               className="group relative inline-flex items-center justify-center
                px-6 py-2.5 sm:px-7 sm:py-3
-               bg-amber-500/90 hover:bg-amber-500 
-               text-neutral-950 text-sm sm:text-base font-medium
+               bg-emerald-600 hover:bg-emerald-700
+               text-white text-sm sm:text-base font-medium
                rounded-lg
                transition-all duration-300 ease-out
-               hover:shadow-lg hover:shadow-amber-500/25
+               hover:shadow-lg hover:shadow-emerald-500/25
                hover:-translate-y-0.5
                active:translate-y-0
                focus-visible:outline-none focus-visible:ring-2 
-               focus-visible:ring-amber-400 focus-visible:ring-offset-2 
+               focus-visible:ring-emerald-400 focus-visible:ring-offset-2 
                focus-visible:ring-offset-neutral-950
                overflow-hidden"
               aria-label="Agendar uma experiência gastronômica com Chef Henrique"

@@ -79,33 +79,33 @@ export default function Footer({ className = "" }: FooterProps) {
   }, []);
 
   const footerClasses = `
-    relative bg-neutral-950 
-    border-t border-neutral-800/50
-    overflow-hidden
-    ${className}
-  `.trim();
+  relative bg-[#1F1D1E]
+  border-t border-white/10
+  overflow-hidden
+  ${className}
+`.trim();
 
   return (
     <footer className={footerClasses} role="contentinfo">
-      {/* Decorative background effects */}
+      {/* Decorative background effects - matching AboutSection/ContactSection */}
       <div
-        className="absolute inset-0 bg-gradient-to-t from-neutral-900/60 via-neutral-950 to-transparent pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-t from-slate-800/60 via-slate-900 to-transparent pointer-events-none"
         aria-hidden="true"
       />
       <div
-        className="absolute top-0 left-1/4 w-96 h-96 bg-amber-500/5 rounded-full blur-[120px]"
+        className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/8 rounded-full blur-[120px]"
         aria-hidden="true"
       />
       <div
-        className="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/5 rounded-full blur-[120px]"
+        className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-600/8 rounded-full blur-[120px]"
         aria-hidden="true"
       />
 
-      {/* Pattern overlay */}
+      {/* Pattern overlay - matching emerald theme */}
       <div
-        className="absolute inset-0 opacity-[0.02]"
+        className="absolute inset-0 opacity-[0.015]"
         style={{
-          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(245 158 11) 1px, transparent 0)`,
+          backgroundImage: `radial-gradient(circle at 1px 1px, rgb(5 150 105) 1px, transparent 0)`,
           backgroundSize: "40px 40px",
         }}
         aria-hidden="true"
@@ -117,26 +117,26 @@ export default function Footer({ className = "" }: FooterProps) {
           {/* Brand Section */}
           <div className="lg:col-span-2 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
-              <div className="relative inline-flex items-center justify-center h-12 w-12 rounded-full border-2 border-amber-500/60 bg-gradient-to-br from-amber-500/10 to-amber-600/5 shadow-lg shadow-amber-500/20">
+              <div className="relative inline-flex items-center justify-center h-12 w-12 rounded-full border-2 border-emerald-500/60 bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 shadow-lg shadow-emerald-500/20">
                 <ChefHat
-                  className="w-6 h-6 text-amber-400"
+                  className="w-6 h-6 text-emerald-400"
                   aria-hidden="true"
                 />
                 <Sparkles
-                  className="absolute -top-1 -right-1 w-3 h-3 text-amber-400"
+                  className="absolute -top-1 -right-1 w-3 h-3 text-emerald-400"
                   aria-hidden="true"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-serif text-amber-400 leading-tight">
+                <span className="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-400 leading-tight">
                   Chef Henrique
                 </span>
-                <span className="text-[10px] text-amber-500/60 font-light tracking-widest uppercase">
+                <span className="text-[10px] text-emerald-500/60 font-light tracking-widest uppercase">
                   Gastronomia Premium
                 </span>
               </div>
             </div>
-            <p className="text-neutral-400 text-sm sm:text-base leading-relaxed max-w-md mx-auto md:mx-0 mb-6">
+            <p className="text-slate-400 text-sm sm:text-base leading-relaxed max-w-md mx-auto md:mx-0 mb-6">
               Transformando ingredientes em experiências únicas através da
               gastronomia contemporânea com sabores que contam histórias.
             </p>
@@ -146,7 +146,7 @@ export default function Footer({ className = "" }: FooterProps) {
           <div className="text-center md:text-left">
             <h3 className="text-white font-semibold mb-4 text-lg flex items-center justify-center md:justify-start gap-2">
               <span
-                className="h-px w-8 bg-gradient-to-r from-amber-500 to-transparent"
+                className="h-px w-8 bg-gradient-to-r from-emerald-500 to-transparent"
                 aria-hidden="true"
               />
               Links Rápidos
@@ -157,7 +157,7 @@ export default function Footer({ className = "" }: FooterProps) {
                   <li key={link.href}>
                     <button
                       onClick={() => scrollToSection(link.href)}
-                      className="text-neutral-400 hover:text-amber-500 transition-colors text-sm hover:translate-x-1 inline-block"
+                      className="text-slate-400 hover:text-emerald-500 transition-colors text-sm hover:translate-x-1 inline-block"
                     >
                       {link.label}
                     </button>
@@ -171,12 +171,12 @@ export default function Footer({ className = "" }: FooterProps) {
           <div className="text-center md:text-left">
             <h3 className="text-white font-semibold mb-4 text-lg flex items-center justify-center md:justify-start gap-2">
               <span
-                className="h-px w-8 bg-gradient-to-r from-amber-500 to-transparent"
+                className="h-px w-8 bg-gradient-to-r from-emerald-500 to-transparent"
                 aria-hidden="true"
               />
               Redes Sociais
             </h3>
-            <p className="text-neutral-400 text-sm mb-4">
+            <p className="text-slate-400 text-sm mb-4">
               Acompanhe nosso trabalho e novidades
             </p>
             <div className="flex justify-center md:justify-start gap-3">
@@ -190,12 +190,12 @@ export default function Footer({ className = "" }: FooterProps) {
                     group relative
                     flex items-center justify-center
                     w-10 h-10 rounded-full
-                    bg-neutral-900/50 border border-neutral-800
-                    text-neutral-400 ${social.color}
+                    bg-slate-800/50 border border-slate-700
+                    text-slate-400 ${social.color}
                     transition-all duration-300
                     hover:scale-110 hover:border-current
                     hover:shadow-lg hover:shadow-current/20
-                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500
                   `}
                   aria-label={social.label}
                 >
@@ -207,29 +207,11 @@ export default function Footer({ className = "" }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-neutral-800/50 py-6 sm:py-8">
+        <div className="border-t border-slate-800/50 py-6 sm:py-8">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
             {/* Copyright */}
-            <p className="text-neutral-500 text-center sm:text-left">
+            <p className="text-slate-500 text-center sm:text-left">
               &copy; {currentYear} Chef Henrique. Todos os direitos reservados.
-            </p>
-
-            {/* Made with love */}
-            <p className="text-neutral-600 flex items-center gap-2 text-xs sm:text-sm">
-              <span>Desenvolvido com</span>
-              <Heart
-                className="w-4 h-4 text-red-500 animate-pulse"
-                aria-hidden="true"
-              />
-              <span>por</span>
-              <a
-                href="https://portfolio-jorge-fullstack.vercel.app/#home"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-amber-500 hover:text-amber-400 font-semibold underline underline-offset-2 transition-colors"
-              >
-                Jorge Oliveira
-              </a>
             </p>
           </div>
         </div>
