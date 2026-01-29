@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, memo } from "react";
-import { ArrowDown } from "lucide-react";
 
 // ============================================================================
 // TYPES
@@ -43,18 +42,7 @@ const BackgroundOverlays = memo(() => (
 ));
 BackgroundOverlays.displayName = "BackgroundOverlays";
 
-const ScrollIndicator = memo(() => (
-  <div
-    className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
-    role="presentation"
-    aria-hidden="true"
-  >
-    <div className="w-6 h-10 border-2 border-emerald-500/60 rounded-full flex justify-center p-1">
-      <div className="w-1.5 h-3 bg-emerald-500 rounded-full animate-pulse" />
-    </div>
-  </div>
-));
-ScrollIndicator.displayName = "ScrollIndicator";
+// (REMOVIDO) ScrollIndicator — era o efeito do “mouse” pulando na home
 
 // ============================================================================
 // MAIN COMPONENT
@@ -97,7 +85,7 @@ export default function HeroSection({ className = "" }: HeroSectionProps) {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 mt-[8vh] sm:mt-[10vh]">
         <div className="max-w-3xl">
-          {/* Heading - Tamanhos reduzidos e mais harmônicos */}
+          {/* Heading */}
           <h1
             id="hero-heading"
             className="font-serif mb-4 sm:mb-6 leading-[1.1] tracking-tight"
@@ -113,12 +101,12 @@ export default function HeroSection({ className = "" }: HeroSectionProps) {
             </span>
           </h1>
 
-          {/* Subtitle - Tamanho reduzido */}
+          {/* Subtitle */}
           <p className="text-base sm:text-lg md:text-xl text-neutral-300 mb-6 sm:mb-8 leading-relaxed max-w-xl">
             {HERO_CONTENT.subtitle}
           </p>
 
-          {/* CTA Button - Versão Minimalista */}
+          {/* CTA Button */}
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
             <button
               onClick={handleCtaClick}
@@ -137,21 +125,19 @@ export default function HeroSection({ className = "" }: HeroSectionProps) {
                overflow-hidden"
               aria-label="Agendar uma experiência gastronômica com Chef Henrique"
             >
-              {/* Efeito sutil de brilho ao hover */}
+              {/* brilho sutil no hover */}
               <span
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent 
                      translate-x-[-200%] group-hover:translate-x-[200%] 
                      transition-transform duration-700"
               />
-
               <span className="relative">{HERO_CONTENT.cta}</span>
             </button>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <ScrollIndicator />
+      {/* Scroll Indicator removido */}
     </section>
   );
 }
