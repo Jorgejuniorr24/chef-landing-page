@@ -1,48 +1,53 @@
-# 🍽️ Landing Page - Chef Ricardo
+🍽️ Landing Page — Chef Henrique
 
-Landing page profissional para chef de cozinha, desenvolvida com Next.js 14, TypeScript e Tailwind CSS.
+Landing page profissional desenvolvida para apresentação de serviços gastronômicos, com foco em performance, experiência do usuário e conversão.
 
-## 🚀 Tecnologias
+Projeto ideal para chefs, restaurantes e profissionais da gastronomia que desejam uma presença digital moderna e eficiente.
 
-- **Next.js 14** (App Router)
-- **TypeScript**
-- **Tailwind CSS**
-- **Lucide React** (ícones)
-- **Formspree** (formulário de contato)
+📌 Visão Geral
 
-## 📦 Instalação
+A aplicação foi construída utilizando tecnologias modernas do ecossistema front-end, priorizando:
 
-```bash
+Performance e SEO
+Design responsivo (mobile-first)
+Acessibilidade (WCAG)
+Código escalável e tipado
+🚀 Tecnologias Utilizadas
+Next.js 14 (App Router)
+TypeScript
+Tailwind CSS
+Lucide React
+Formspree
+⚙️ Instalação e Execução
 # 1. Clone o repositório
 git clone https://github.com/seu-usuario/landing-chef.git
 
-# 2. Instale as dependências
+# 2. Acesse a pasta
+cd landing-chef
+
+# 3. Instale as dependências
 npm install
 
-# 3. Configure o .env.local
+# 4. Configure variáveis de ambiente
 cp .env.local.example .env.local
-# Edite o arquivo e adicione suas credenciais
 
-# 4. Execute o projeto
+# 5. Execute o projeto
 npm run dev
-```
 
-Acesse: [http://localhost:3000](http://localhost:3000)
+🔗 Acesse: http://localhost:3000
 
-## 🎨 Estrutura do Projeto
-
-```
+📁 Estrutura do Projeto
 src/
 ├── app/
-│   ├── layout.tsx          # Layout principal
-│   ├── page.tsx            # Homepage
+│   ├── layout.tsx          # Layout global da aplicação
+│   ├── page.tsx            # Página principal
 │   └── globals.css         # Estilos globais
 │
 ├── components/
 │   ├── layout/
-│   │   ├── Header.tsx      # Cabeçalho
+│   │   ├── Header.tsx      # Cabeçalho da aplicação
 │   │   ├── Footer.tsx      # Rodapé
-│   │   └── Navigation.tsx  # Navegação
+│   │   └── Navigation.tsx  # Navegação principal
 │   │
 │   └── sections/
 │       ├── HeroSection.tsx
@@ -50,102 +55,85 @@ src/
 │       ├── ServicesSection.tsx
 │       ├── DishesSection.tsx
 │       └── ContactSection.tsx
-```
+✨ Funcionalidades
+✅ Layout responsivo (mobile-first)
+✅ Navegação suave (scroll behavior)
+✅ Animações e microinterações
+✅ Formulário de contato funcional
+✅ Botão flutuante de WhatsApp
+✅ SEO otimizado (meta tags + estrutura semântica)
+✅ Alta performance (Next.js + otimizações nativas)
+✅ Código tipado com TypeScript
+✅ Acessibilidade (ARIA, navegação por teclado)
+📬 Integração com Formulário (Formspree)
+Acesse: https://formspree.io
+Crie uma conta e um formulário
+Copie o Form ID
+Configure no .env.local:
+NEXT_PUBLIC_FORMSPREE_ID=seu_form_id
+Atualize o envio no componente:
+const response = await fetch(
+  `https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID}`,
+  {
+    method: "POST",
+    body: JSON.stringify(data),
+  }
+);
+🎨 Customização
+🎯 Cores
 
-## ⚙️ Configuração do Formspree
+Edite o arquivo:
 
-1. Acesse [formspree.io](https://formspree.io/)
-2. Crie uma conta e um novo formulário
-3. Copie o Form ID
-4. Adicione no `.env.local`:
-
-```
-   NEXT_PUBLIC_FORMSPREE_ID=seu_form_id
-```
-
-5. Atualize o action do formulário em `ContactSection.tsx`:
-
-```typescript
-   const response = await fetch(`https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID}`, {
-```
-
-## 🎯 Features
-
-- ✅ Design responsivo (mobile-first)
-- ✅ Navegação suave entre seções
-- ✅ Animações e efeitos hover
-- ✅ Formulário de contato integrado
-- ✅ Botão WhatsApp flutuante
-- ✅ SEO otimizado
-- ✅ Performance otimizada
-- ✅ TypeScript (type-safe)
-- ✅ Acessibilidade (ARIA labels)
-
-## 🚀 Deploy
-
-### Vercel (Recomendado)
-
-```bash
-# 1. Instale a CLI da Vercel
-npm i -g vercel
-
-# 2. Faça o deploy
-vercel
-```
-
-Ou conecte seu repositório GitHub direto na [Vercel](https://vercel.com).
-
-### Netlify
-
-```bash
-# 1. Build
-npm run build
-
-# 2. Deploy a pasta .next
-```
-
-## 📝 Customização
-
-### Alterar Cores
-
-Edite `tailwind.config.ts`:
-
-```typescript
+tailwind.config.ts
 colors: {
   amber: {
-    500: '#f59e0b', // Cor principal
-    600: '#d97706', // Hover
+    500: '#f59e0b',
+    600: '#d97706',
   },
-},
-```
+}
+🔤 Fontes
 
-### Alterar Fontes
+No arquivo:
 
-Edite `app/layout.tsx`:
-
-```typescript
+app/layout.tsx
 import { Inter, Playfair_Display } from "next/font/google";
-```
+📝 Conteúdo
 
-### Alterar Conteúdo
+Os dados podem ser facilmente alterados nos componentes em:
 
-Edite os componentes em `components/sections/`:
+components/sections/
 
-- Textos
-- Imagens
-- Links das redes sociais
-- Informações de contato
+Você pode modificar:
 
-## 📧 Contato
+Textos
+Imagens
+Links sociais
+Informações de contato
+🚀 Deploy
+▲ Vercel (Recomendado)
+Integração nativa com Vercel
+npm i -g vercel
+vercel
 
-- **Email**: contato@chefricardo.com
-- **WhatsApp**: +55 (71) 99999-9999
-- **Instagram**: [@chefricardo](https://instagram.com/chefricardo)
+Ou conecte diretamente seu repositório do GitHub.
 
-## 📄 Licença
+🌐 Netlify
+npm run build
 
-MIT License - Sinta-se livre para usar este projeto.
+Deploy da pasta .next
 
----
+📈 Boas Práticas Aplicadas
+Estrutura baseada em componentes reutilizáveis
+Separação clara de responsabilidades
+Uso de variáveis de ambiente
+Otimização de imagens e assets
+SEO técnico (HTML semântico + metadata)
+Acessibilidade (WCAG)
+📞 Contato
+📧 Email: contato@chefhenrique.com
+📱 WhatsApp: +55 (71) 99999-9999
+📸 Instagram: @chefhenrique
+📄 Licença
 
-Desenvolvido com ❤️ e ☕
+Este projeto está sob a licença MIT.
+Sinta-se livre para utilizar, modificar e distribuir.
